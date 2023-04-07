@@ -1,0 +1,54 @@
+.paywallPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .paywallContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    width: 70vw;
+    height: 20vh;
+    background-color: white;
+  }
+  
+  .paywallTitle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .paywallText {
+    margin-top: 1vh;
+    display: flex;
+    justify-content: center;
+    word-wrap: break-word;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .buttonLayout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .buttonStyle {
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 1vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    width: 150px;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "title": "My first post",
+      "postText": "Lorem ipsum dolor sit amet. Ad nobis porro est voluptate dolore id fuga incidunt cum sapiente perspiciatis eos voluptas facilis aut mollitia quos. Ut atque obcaecati cum dolor labore ea distinctio provident aut unde quasi et numquam ratione qui dolor reprehenderit. Et quia officiis a nesciunt itaque est distinctio velit et voluptas nihil ea cumque galisum et similique sequi. Et earum asperiores quo sapiente delectus et animi voluptatem id maxime excepturi qui dolorum omnis et magni provident aut itaque quidem. Est dolor error est dolores ipsum non quisquam iusto aut nihil laudantium. Et dolore numquam et magni repudiandae est asperiores nulla nam repellendus officia qui consectetur nostrum. Id esse consequatur eum provident eaque et laborum dolor et sunt consequatur ea temporibus animi. Aut quas minima et nihil illum in quaerat delectus. Hic dignissimos nesciunt 33 voluptatem velit aut sint veritatis et culpa placeat. Ea magni dolores aut tempora sint aut dolore cumque rem aliquam sint?",
+      "paywall": false,
+      "id": 1
+    },
+    {
+      "title": "Another post",
+      "postText": "Lorem ipsum dolor sit amet. Vel tempora beatae sit officiis laborum qui voluptatem sequi aut nobis quia cum quod molestiae sed mollitia sint hic provident quaerat! Non sunt placeat non itaque maxime aut beatae itaque! At iste rerum et dolores doloremque qui nihil voluptatem ut nostrum saepe eum illum harum aut facere asperiores rem delectus voluptatibus! Et dolorem reprehenderit nam quia quia aut totam temporibus est doloremque cupiditate aut sunt omnis a ducimus voluptate ad ducimus dignissimos. Qui quasi incidunt et Quis ipsa sit autem impedit et rerum unde quo dolorum aspernatur. Est aperiam provident id ullam placeat aliquid rerum qui voluptates provident est neque rerum. Eos voluptatem inventore hic culpa nobis ab temporibus dolor qui voluptatibus dolores sit sunt repudiandae eos iure commodi. Eum adipisci voluptatum ea perferendis consequuntur et aliquam tempore et esse quas non pariatur magni et minus doloremque.",
+      "paywall": true,
+      "id": 2
+    },
+    {
+      "title": "Test",
+      "postText": "testing",
+      "paywall": true,
+      "id": 3
+    }
+  ]
+}

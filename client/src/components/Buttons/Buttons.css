@@ -1,0 +1,25 @@
+.primaryBtn{
+    background-color: #753ff6;
+    padding:19px 32px;
+    color:white;
+    border:none;
+    outline:none;
+    width:100%;
+    margin:19px 0px 20px 0px;
+    border-radius:30px;
+    cursor:pointer;
+    transition:background-color 2s ease
+}
+
+
+.disabled{
+    background-color: #ebf0ef;
+    padding:19px 32px;
+    color:white;
+    border:none;
+    outline:none;
+    width:100%;
+    margin:19px 0px 20px 0px;
+    border-radius:30px;
+    transition:background-color 3s ease
+}

@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Product Sans";
+  src: url("./fonts//Product\ Sans\ Regular.ttf");
+}
+
+@font-face {
+  font-family: "Product Sans Bold";
+  src: url("./fonts/Product\ Sans\ Bold.ttf");
+}
+
+@font-face {
+  font-family: "Product Sans Italic";
+  src: url("./fonts/Product\ Sans\ Italic.ttf");
+}
+
+
+p,div,span,button,a{
+  font-family: "Product Sans";
+}
+
+
+h1,h2,h3,h4,h5{
+  font-family: "Product Sans Bold";
+}

@@ -1,0 +1,81 @@
+
+.paymentContainer{ 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width:400px;
+    padding:20px;
+    border-radius:10px;
+    margin:50px 0px 0px 0px
+}
+
+
+div {
+    position: relative;
+  }
+  
+  select {
+    position: absolute;
+    right: 10px; /* adjust as needed */
+    top: 50%; /* center the select vertically */
+    transform: translateY(-50%);
+    border:none;
+    background-color:#eef1f7;
+    cursor: pointer;
+  }
+
+  select:focus{
+    border:none;
+    outline: none;
+  }
+
+
+  select option {
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    font-size: 16px;
+  }
+  
+  option.NGN {
+    background-image: url('../../flags/flagSprite42.png');
+    background-position:center 8.2099%
+  }
+  
+  option.USD {
+    background-image: url('../../flags/flagSprite42.png');
+    background-position:center 24.392%
+  }
+  
+  option.GBP {
+    background-image: url('../../flags/flagSprite42.png');
+    background-position:center 44.5687%
+  }
+
+
+  .refreshIcon{
+    background-color: #753ff6;
+    width:18px;
+    margin:10px auto;
+    display:flex;
+    justify-content: center;
+    padding:5px;
+    border-radius:50%;
+  }
+
+
+  .form{
+    background-color:#eef1f7;
+    border:0px solid olive !important;
+    width:100%;
+    outline: 0px !important
+  }
+
+
+  .chip{
+    color:#753ff6;
+    background-color:#ececff;
+    padding:8px 12px;
+    width:120px;
+    font-size:12px;
+    margin:10px 0px 20px 0px;
+    border-radius:50px
+  }
