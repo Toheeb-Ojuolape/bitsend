@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { MdLogin, MdLogout } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 import Home from "./components/home/Home";
 import CreatePost from "./components/createPost/CreatePost";
 import Post from "./components/post/Post";
@@ -8,6 +8,7 @@ import Paywall from "./components/paywall/Paywall";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Recipient from "./pages/Recipient";
+import Invoice from "./pages/Invoice";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -51,9 +52,11 @@ function App() {
         </h2>
         
         {user == null ? (
-        <div className="cpLayout" onClick={navigateLogin}>
-          <MdLogin className="cpIcon" />
-          <h4 className="navCP">Login</h4>
+        <div>
+        <div className="loginButton" onClick={navigateLogin}>
+         
+          Login ⚡
+        </div>
         </div>
         ) : (
         <div className="cpLayout" onClick={navigateLogout}>
@@ -69,6 +72,7 @@ function App() {
         <Route path="/post/:postId" element={<Post />} />
         <Route path="/paywall" element={<Paywall />} />
         <Route path="/recipient" element={<Recipient />} />
+        <Route path="/invoice" element={<Invoice />} />
       </Routes>
     </div>
   );

@@ -79,3 +79,14 @@ div {
     margin:10px 0px 20px 0px;
     border-radius:50px
   }
+
+  .text-center{
+    text-align: center;
+  }
+
+  .invoiceContainer{
+    padding:5px 8px;
+    border:solid 1px #656565;
+    border-radius:8px;
+    margin:10px 0px
+  }

@@ -1,0 +1,60 @@
+name: Publish changes to Node package manager
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  check-readme-and-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check for README and CHANGELOG changes
+        run: |
+          if ! git diff --quiet HEAD~ HEAD -- README.md CHANGELOG.md; then
+            echo "README and/or CHANGELOG have been modified. Proceeding with deployment."
+          else
+            echo "README and/or CHANGELOG have not been modified. Terminating deployment."
+            exit 1
+          fi
+
+      - name: push build status to Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
+
+  publish:
+    needs: check-readme-and-changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node Engine
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+      - name: Send Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        if: always()

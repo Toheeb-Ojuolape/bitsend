@@ -8,39 +8,14 @@
     padding-top: 20px;
   }
   
-  .homePage .post {
-    width: 600px;
-    height: auto;
-    max-height: 600px;
-    background-color: rgb(250, 250, 250);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 15px;
-    cursor: pointer;
-  }
-  
-  .post .postHeader {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .postHeader .title {
-    flex: 50%;
-  }
-  
-  .post .postTextContainer {
-    word-wrap: break-word;
-    max-height: 50px;
-    width: 100%;
-    overflow: hidden;
-    overflow-y: auto;
-  }
 
-  .postsText {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+  .container {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
   }
+  

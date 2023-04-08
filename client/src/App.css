@@ -29,6 +29,24 @@ nav {
     flex-direction: row;
     align-items: center;
   }
+
+  .loginButton {
+    display: flex;
+    background:white;
+    color:#753ff6;
+    justify-content: space-between;
+    padding:16px 32px;
+    margin:0px 13px 0px 0px;
+    border-radius:12px;
+    cursor: pointer;
+  }
+
+  .loginButton:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+
+
+
   
   .cpIcon {
   height: 4vh;
