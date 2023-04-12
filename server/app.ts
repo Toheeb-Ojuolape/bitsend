@@ -121,7 +121,6 @@ initNode().then(() => {
   console.log("Lightning node initialized!");
   console.log("Starting server...");
   io.on("connection", async (socket: Socket) => {
-    console.log(socket.id)
     let subscriber = await node.subscribeInvoices()
     subscriber.on("data", (invoice) => {
       console.log(invoice)

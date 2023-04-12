@@ -10,7 +10,7 @@ function Invoice(props) {
     toast.success('Invoice copied to clipboard');
   }
   return (
-    <div className="text-center">
+    <div id="invoice" className="text-center">
       <Toaster/>
       <h2>Scan to Pay </h2>
       <QRCode

@@ -6,14 +6,17 @@ import { io } from "socket.io-client";
 
 function Invoice() {
 const [invoice,setInvoice] = React.useState("")
+const invoiceComponent = document.getElementById("invoice")
+const successComponent = document.getElementById("success")
 
 
 useEffect(() => {
   const socket = io("http://localhost:3000");
   socket.on("payment-completed", () => {
-    
+    invoiceComponent.style.display = "none"
+    successComponent.style.display = "block"
   });
-},[])
+},[invoiceComponent,successComponent])
 
 
 useEffect(()=>{

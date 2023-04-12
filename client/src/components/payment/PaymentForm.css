@@ -94,3 +94,36 @@ div {
   .cursor{
     cursor: pointer;
   }
+
+  .successContainer{
+    display:flex;
+    justify-content: center;
+  }
+
+  .successDescription{
+    max-width:300px;
+    margin:auto;
+    text-align:center
+  }
+
+
+  .successAction{
+    margin:20px 0px;
+    display:flex;
+    justify-content: center;
+
+  }
+
+  .btn-outline{
+    padding:16px 64px;
+    color:#753ff6;
+    border:solid 1px #753ff6;
+    background:white;
+    border-radius:10px;
+    font-weight:bold;
+    cursor: pointer;
+  }
+
+  .hiddenComponent{
+    display:none
+  }
