@@ -7,7 +7,7 @@ const [bank,setBank] = React.useState([])
 useEffect(()=>{
     axios({
         method:"POST",
-        url:"http://localhost:3001/fetch-banks",
+        url:"http://localhost:3000/fetch-banks",
         headers:{
             "Content-Type":"application/json",
             Accept:"*/*"

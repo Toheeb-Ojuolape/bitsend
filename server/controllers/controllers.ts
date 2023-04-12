@@ -4,6 +4,7 @@ import createLnRpc from "@radar/lnrpc";
 var request = require("request");
 require("dotenv").config();
 import { Request, Response } from "express";
+import {node} from "../helpers/node"
 
 module.exports.converter_post = async (req: Request, res: Response) => {
   let currencyConverter = new CC();
@@ -47,6 +48,7 @@ module.exports.resolvebank_post = async (req: Request, res: Response) => {
 
 //generate invoice
 module.exports.generateInvoice_post = async (req: Request, res: Response) => {
+  console.log(req.body.amount)
   try {
     const lnRpcClient = await createLnRpc({
       server: process.env.LND_GRPC_URL,
@@ -57,7 +59,7 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
     });
 
     const { paymentRequest } = await lnRpcClient.addInvoice({
-      value: "200",
+      value: req.body.amount,
     })
     res.status(200).json(paymentRequest);
   } catch (error: any) {
@@ -65,3 +67,18 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
     res.status(400).json(error);
   }
 };
+
+
+
+module.exports.checkInvoice_post = async (req: Request, res:Response) => {
+  try {
+    // const {invoice}= req.param
+    let dataReturn = {}
+    let stream = node.subscribeInvoices({})
+    console.log(stream)
+    
+
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

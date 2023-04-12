@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
-const LnurlAuth = require("passport-lnurl-auth")
+const LnurlAuth = require("passport-lnurl-auth");
 const passport = require("passport");
-const session = require("express-session")
+const session = require("express-session");
 import cors from "cors";
 import path from "path";
-const routes = require("./routes/router")
+const routes = require("./routes/router");
 import bodyParser from "body-parser";
+import { initNode, node } from "./helpers/node";
+import { Socket } from "socket.io";
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,15 +24,15 @@ declare module "express-serve-static-core" {
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3001",
     credentials: true,
   })
 );
 
 const config = {
   host: "localhost",
-  port: 3001,
-  url: 'http://localhost:3001',
+  port: 3000,
+  url: "http://localhost:3000",
 };
 
 // if (!config.url) {
@@ -88,13 +90,13 @@ app.get(
   function (req: Request, res: Response, next: NextFunction) {
     if (req.user) {
       // Already authenticated.
-      return res.redirect("http://localhost:3000/");
+      return res.redirect("http://localhost:3001/");
     }
     next();
   },
   new LnurlAuth.Middleware({
     callbackUrl: config.url + "/login",
-    cancelUrl: "http://localhost:3000/",
+    cancelUrl: "http://localhost:3001/",
     loginTemplateFilePath: path.join(__dirname, "login.html"),
   })
 );
@@ -105,19 +107,42 @@ app.get("/user", (req: Request, res: Response) => {
 
 app.get("/logout", function (req: Request, res: Response, next: NextFunction) {
   if (req.user) {
-    
     // req.session.destroy(e)
     res.json({ message: "user logged out" });
     // Already authenticated.
-    return res.redirect("http://localhost:3000/");
+    return res.redirect("http://localhost:3001/");
   }
   next();
 });
 
 app.use(routes);
 
+initNode().then(() => {
+  console.log("Lightning node initialized!");
+  console.log("Starting server...");
+  io.on("connection", async (socket: Socket) => {
+    console.log(socket.id)
+    let subscriber = await node.subscribeInvoices()
+    subscriber.on("data", (invoice) => {
+      console.log(invoice)
+      if (invoice.settled === true) {
+        socket.emit("payment-completed", invoice);
+      }
+    });
+    socket.on("disconnect", () => {
+      console.log("A user disconnected.");
+    });
+  });
+});
+
 const server = app.listen(config.port, config.host, function () {
   console.log("Server listening at " + config.url);
+});
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: ["http://localhost:3001"],
+  },
 });
 
 process.on("uncaughtException", (error: Error) => {
