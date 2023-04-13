@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InputBase, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { MdSearch } from 'react-icons/md';
 
-const SearchForm = ({ options, label, value, onChange }) => {
+const SearchForm = ({ options, label, value, onChange,defaultValue }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event) => {
@@ -19,6 +19,7 @@ const SearchForm = ({ options, label, value, onChange }) => {
       id={label}
       value={value}
       onChange={onChange}
+      defaultValue={defaultValue}
       input={
         <OutlinedInput
           label={label}

@@ -3,19 +3,22 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+                
 	<title>Bit ⚡ Send</title>
 	<style>
+		
 		html, body {
 			width: 100%;
 			height: 100%;
 			color: black;
-			font-family: sans;
+			font-family:"Product Sans",sans-serif;
 			background: white;
 			margin: 0;
 		}
 		h1 {
 			margin: 0 0 .5rem 0;
-            color: #6889fd;
+            color: #753ff6;
 		}
 		p {
 			font-weight: 100;
@@ -45,21 +48,25 @@
 		}
 		.button {
 			cursor: pointer;
-			color: #fff;
+			color: #753ff6;
 			font-size: 1.1rem;
 			line-height: 1.8rem;
-			background: #6889fd;
-			border: none;
+			border: solid 1px #753ff6 !important;
 			outline: none;
-			border-radius: 30px;
+			border-radius: 13px;
 			padding:12px 40px;
+			background-color:white;
+			transition:background-color 0.3s ease-in
+		}
+
+		.button:hover{
+			background-color: #753ff6;
+			color:white
 		}
 		a.button,
 		a.button:active,
 		a.button:hover {
-			color: #fff;
 			text-decoration: none;
-			border: none;
 		}
 		.button:hover {
 			opacity: 1;

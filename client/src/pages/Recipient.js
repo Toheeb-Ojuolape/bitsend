@@ -16,7 +16,7 @@ useEffect(()=>{
             Accept:"*/*"
         },
         data:{
-          country:payment.destination
+          country:payment.destination ? payment.destination:"NG"
         }
     }).then((response)=>{
         setBank(response.data.data)

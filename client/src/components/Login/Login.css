@@ -1,0 +1,44 @@
+.loginContainer{
+    border:solid 1px #656565;
+    border-radius:10px;
+    padding:20px 50px;
+    text-align:center;
+    margin:50px 0px
+}
+
+
+.loginPageButton{
+    background:white;
+    color:#753ff6;
+    border:solid 2px #753ff6;
+    display:flex;
+    justify-content: center;
+    width:100% !important;
+    padding:16px 32px;
+    border-radius:12px;
+    cursor: pointer;
+}
+
+
+.or {
+    text-align: center;
+  }
+  .line {
+    height: 1px;
+    background: rgb(159, 159, 159);
+  }
+  .orText {
+    position: relative;
+    top: 18px;
+    color: black;
+    font-size: 13px;
+    background: white;
+    display: inline-block;
+    padding: 0 20px;
+    border-radius: 30px;
+    z-index:39
+  }
+
+  .loginForm{
+    margin:20px 0px
+  }

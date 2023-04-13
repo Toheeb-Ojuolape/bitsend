@@ -53,12 +53,7 @@ div {
 
   .refreshIcon{
     background-color: #753ff6;
-    width:18px;
-    margin:10px auto;
-    display:flex;
-    justify-content: center;
-    padding:5px;
-    border-radius:50%;
+    height:20px
   }
 
 

@@ -19,18 +19,21 @@ function RecipientForm(props) {
   const [accountNumer, setAccountNumberValue] = React.useState("");
   const dispatch = useDispatch();
   const history = useNavigate();
-  const payment = useSelector(state=>state.payment.value)
+  const payment = useSelector((state) => state.payment.value);
 
   const continuePayment = () => {
-    const value = {
-      email: email,
+    const payload = {
+      email: email ? email : payment.email,
       bank:
-        props.bank && props.bank.filter((bankId) => bankId.name === bank)[0].code,
-      bankName:bank,
-      accountName: accountName,
-      accountNumber: accountNumer,
+        props.bank &&
+        props.bank.filter((bankId) =>
+          bankId.name === bank ? bank : payment.bankName
+        )[0].code,
+      bankName: bank ? bank : payment.bankName,
+      accountName: accountName ? accountName : payment.accountName,
+      accountNumber: accountNumer ? accountNumer : payment.accountNumber,
     };
-    dispatch(setPayment({...payment,...value}));
+    dispatch(setPayment({ ...payment, ...payload }));
     history("/invoice");
   };
 
@@ -73,22 +76,32 @@ function RecipientForm(props) {
           onChange={(e) => setEmail(e)}
           disabled={false}
           label={"Recipient Email (required)"}
+          value={payment.email}
         />
 
         <SearchForm
           label={"Choose Bank (required)"}
           options={props.bank}
           onChange={(event) => setBank(event.target.value)}
+          defaultValue={payment.bankName}
         />
 
         <InputNumber
           onChange={(e) => setAccountNumber(e)}
           label={"Account Number"}
+          value={payment.accountNumber}
         />
 
-        <InputText value={accountName} disabled={true} label={"Account Name"} />
+        <InputText
+          value={accountName ? accountName : payment.accountName}
+          disabled={true}
+          label={"Recipient Name"}
+        />
+        
         <PrimaryBtn
-          disabled={accountName === "" ? true : false}
+          disabled={
+            accountName === "" && payment.accountName === undefined ? true : false
+          }
           title={"Continue"}
           onClick={continuePayment}
         />

@@ -1,14 +1,16 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
-import Home from "./components/home/Home";
+import Home from "./pages/Home";
+import Login from "./pages/Login"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Recipient from "./pages/Recipient";
 import Invoice from "./pages/Invoice";
 import { io } from "socket.io-client";
-import { store } from './store/store';
-import { Provider } from 'react-redux';
+import { store } from "./store/store";
+import { Provider } from "react-redux";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,7 +31,7 @@ function App() {
       res.data.id ? setUser(res.data.id) : setUser(null);
       console.log(res);
     });
-  },[socket]);
+  }, [socket]);
 
   const navigateHome = () => {
     navigate("/");
@@ -71,13 +73,18 @@ function App() {
           </div>
         )}
       </nav>
+
       <Provider store={store}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/recipient" element={<Recipient />} />
-        <Route path="/invoice" element={<Invoice />} />
-      </Routes>
-     </Provider>
+        <Routes>
+          {user == null ? (
+            <Route path="/" element={<Login />} />
+          ) : (
+            <Route path="/" element={<Home />} />
+          )}
+          <Route path="/recipient" element={<Recipient />} />
+          <Route path="/invoice" element={<Invoice />} />
+        </Routes>
+      </Provider>
     </div>
   );
 }

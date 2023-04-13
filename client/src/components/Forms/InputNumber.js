@@ -5,7 +5,7 @@ import "./Form.css"
 function InputNumber(props) {
   return (
     <div className="formContainer">
-      <TextField onChange={(e)=>props.onChange(e.target.value)} className="form" label={props.label} type="number" inputMode="numeric" variant="outlined" />
+      <TextField defaultValue={props.value} onChange={(e)=>props.onChange(e.target.value)} className="form" label={props.label} type="number" inputMode="numeric" variant="outlined" />
     </div>
   );
 }

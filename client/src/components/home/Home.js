@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import React from "react";
 
-function Home() {
+function Home(props) {
   const [rate, setRate] = React.useState("");
   const [currency] = React.useState("NGN");
   const [newCurrency, setNewCurrency] = React.useState("USD");
@@ -55,6 +55,7 @@ function Home() {
         newCurrency={newCurrency}
         setNewCurrency={(e) => setNewCurrency(e.target.value)}
         changeCurrency={(e)=>changeCurrency(e.target.value)}
+        payment = {props.payment}
       />
     </div>
   );

@@ -1,44 +1,49 @@
 import React from "react";
 import "./PaymentForm.css";
 import InputWithSelect from "../Forms/InputWithSelect";
-import { MdRefresh } from "react-icons/md";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { useNavigate } from "react-router-dom";
 import Select from "../Forms/Select";
 import { setPayment } from "../../store/payment";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import axios from "axios";
-
+import ReloadIcon from "../../assets/reload";
+import Loader from "../Loaders/Overlay";
 
 function PaymentForm(props) {
   const [value, setValue] = React.useState("");
-  const [destination,setDestination] = React.useState("")
-  const history = useNavigate()
-  const dispatch = useDispatch()
-  
+  const [destination, setDestination] = React.useState("");
+  const history = useNavigate();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState(false);
 
-
-  const nextStep = () =>{
+  const nextStep = () => {
+    setLoading(true);
     axios({
-      method:"GET",
-      url:"https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms="+props.newCurrency,
-      headers:{
-        Authorization:"Apikey 86d1a3aae01e824d0545ebe7dc6f355993b48cebe2dc06b670db2d6dfe564702"
-      }
-    }).then((response)=>{
-      const value = {
-        amount:12,
-        currency:props.newCurrency,
-        destination:destination,
-        sats:(1/response.data[props.newCurrency])*100000000
-      }
-      dispatch(setPayment(value))
-      history("/recipient")
-    })
-  }
+      method: "GET",
+      url:
+        "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=" +
+        props.newCurrency,
+      headers: {
+        Authorization:
+          "Apikey 86d1a3aae01e824d0545ebe7dc6f355993b48cebe2dc06b670db2d6dfe564702",
+      },
+    }).then((response) => {
+      const payload = {
+        amount: value ? value : props.payment.amount,
+        currency: props.newCurrency ? props.newCurrency : props.payment.currency,
+        destination: destination ? destination: props.payment.destination,
+        sats: (1 / response.data[props.newCurrency]) * 100000000,
+      };
+      dispatch(setPayment(payload));
+      setLoading(false);
+      history("/recipient");
+    });
+  };
   return (
     <div className="paymentContainer">
       <div className="paymentCard">
+      {loading && <Loader />}
         <div className="chip">
           {props.newCurrency} 1 = {props.currency} {props && props.rate}
         </div>
@@ -48,20 +53,27 @@ function PaymentForm(props) {
           changeCurrency={props.changeCurrency}
           label={"You Send"}
           currencyValue={props.newCurrency}
+          readonly={false}
+          defaultValue={props.payment.amount}
         />
         <div className="refreshIcon">
-          <MdRefresh color="white" />
+          <ReloadIcon />
         </div>
+        <label>Recipient gets</label>
         <InputWithSelect
-          value={value ==="" ?"": value * props.rate}
-          label={"Recipient Gets"}
+          value={value === "" ? props.payment.amount * props.rate :  value * props.rate}
+        
           currencyValue={props.currency}
+          readonly={true}
         />
 
-    
-        <Select setDestination={(e)=>setDestination(e)}/>
+        <Select setDestination={(e) => setDestination(e)} value={props.payment.destination} />
 
-        <PrimaryBtn onClick={nextStep} disabled={value === ""? true : false} title={"Make Payment"}/>
+        <PrimaryBtn
+          onClick={nextStep}
+          disabled={value === "" && props.payment.amount === undefined ? true : false}
+          title={"Make Payment"}
+        />
       </div>
     </div>
   );

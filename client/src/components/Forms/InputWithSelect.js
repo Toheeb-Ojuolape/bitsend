@@ -17,8 +17,10 @@ function InputWithSelect(props) {
         variant="outlined"
         className="form"
         type="number"
-        value={props.value}
+        value={props.value?props.value:props.defaultValue}
         onChange={(e)=>props.setValue(e.target.value)}
+        disabled={props.readonly}
+        defaultValue={props.defaultValue}
       />
       <select
         style={{

@@ -7,8 +7,11 @@ function PrimaryBtn(props) {
       onClick={props.onClick}
       disabled={props.disabled}
       className={props.disabled ? "disabled":"primaryBtn"}
+      loading={props.loading}
     >
-      {props.title} {props.disabled}
+      {props.title} {props.disabled} 
+     
+    
     </button>
   );
 }

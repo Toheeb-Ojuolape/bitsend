@@ -43,10 +43,9 @@ export default function SelectInput(props) {
       <label>Select Destination</label>
       <FormControl sx={{ width: "100%" }} size="small">
         <Select
-          value={destination}
+          value={destination ? destination: props.value}
           onChange={handleChange}
           label="Select Destination"
-          renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
           labelId="demo-select-small"
           id="demo-select-small"

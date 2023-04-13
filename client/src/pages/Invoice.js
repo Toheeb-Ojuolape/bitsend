@@ -3,12 +3,13 @@ import InvoiceComponent from '../components/payment/Invoice'
 import SuccessComponent from '../components/payment/SuccessComponent';
 import axios from 'axios'
 import { io } from "socket.io-client";
+import { useSelector } from 'react-redux';
 
 function Invoice() {
 const [invoice,setInvoice] = React.useState("")
 const invoiceComponent = document.getElementById("invoice")
 const successComponent = document.getElementById("success")
-
+const payment = useSelector(state => state.payment.value)
 
 useEffect(() => {
   const socket = io("http://localhost:3000");
@@ -28,13 +29,13 @@ useEffect(()=>{
             Accept:"*/*"
         },
         data:{
-          amount:"300"
+          amount:payment.sats.toString()
         }
 
     }).then((response)=>{
         setInvoice(response.data)
     })
-},[])
+},[payment])
 
   return (
     <div className="container">
