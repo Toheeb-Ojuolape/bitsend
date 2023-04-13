@@ -8,14 +8,14 @@ import Select from "../Forms/Select";
 import { setPayment } from "../../store/payment";
 import {useDispatch} from "react-redux"
 import axios from "axios";
-import { useSelector } from "react-redux";
+
 
 function PaymentForm(props) {
   const [value, setValue] = React.useState("");
   const [destination,setDestination] = React.useState("")
   const history = useNavigate()
   const dispatch = useDispatch()
-  const payment = useSelector(state=>state.payment.value)
+  
 
 
   const nextStep = () =>{
