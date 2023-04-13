@@ -29,11 +29,12 @@ function PaymentForm(props) {
           "Apikey 86d1a3aae01e824d0545ebe7dc6f355993b48cebe2dc06b670db2d6dfe564702",
       },
     }).then((response) => {
+      console.log(response.data[props.newCurrency])
       const payload = {
         amount: value ? value : props.payment.amount,
         currency: props.newCurrency ? props.newCurrency : props.payment.currency,
         destination: destination ? destination: props.payment.destination,
-        sats: (1 / response.data[props.newCurrency]) * 100000000,
+        sats: ((value ? value:props.payment.amount) * 1 / response.data[props.newCurrency]) * 100000000,
       };
       dispatch(setPayment(payload));
       setLoading(false);

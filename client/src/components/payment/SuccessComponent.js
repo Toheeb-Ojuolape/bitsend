@@ -1,11 +1,10 @@
 import React from "react";
 import successGif from "../../assets/success.gif";
 
-function SuccessComponent() {
-
-const goHome = () =>{
-    window.location.href = "/"
-}
+function SuccessComponent(props) {
+  const goHome = () => {
+    window.location.href = "/";
+  };
   return (
     <div id="success" className="successContainer hiddenComponent">
       <div>
@@ -14,12 +13,32 @@ const goHome = () =>{
         </div>
         <p className="successDescription">
           {" "}
-          You have successfully made a payment of $amount to $recipient with
-          account details $accountdetails
+          You have successfully made a payment of {props.payment.currency}{" "}
+          {props.payment.amount} to <strong className="brandcolor">{props.payment.accountName}</strong> with account
+          details:
+          
+          <p>{" "}
+          {props.payment.accountNumber
+            ? `Account Number: ${props.payment.accountNumber}`
+            : ""}
+            </p>
+          <p>
+          {props.payment.bankName
+            ? `Bank: ${props.payment.bankName}`
+            : ""}
+            </p>
+
+           <p>
+           {props.payment.destination
+            ? `Country: ${props.payment.destination}`
+            : ""}
+           </p>
         </p>
 
         <div className="successAction">
-          <button onClick={goHome} className="btn-outline">Send Another</button>
+          <button onClick={goHome} className="btn-outline">
+            Send Another
+          </button>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import createLnRpc from "@radar/lnrpc";
 var request = require("request");
 require("dotenv").config();
 import { Request, Response } from "express";
-import {node} from "../helpers/node"
+import sendNotification from "../helpers/email";
 
 module.exports.converter_post = async (req: Request, res: Response) => {
   let currencyConverter = new CC();
@@ -21,7 +21,7 @@ module.exports.converter_post = async (req: Request, res: Response) => {
 module.exports.fetchBanks_post = async (req: Request, res: Response) => {
   var options = {
     method: "GET",
-    url: "https://api.flutterwave.com/v3/banks/"+req.body.country,
+    url: "https://api.flutterwave.com/v3/banks/" + req.body.country,
     headers: {
       Authorization: "Bearer " + process.env.FLUTTERWAVE_SECRET_KEY,
     },
@@ -60,9 +60,9 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
 
     const { paymentRequest } = await lnRpcClient.addInvoice({
       value: req.body.amount,
-      expiry:"300000"
-    })
-    console.log(paymentRequest)
+      expiry: "300000",
+    });
+    console.log(paymentRequest);
 
     res.status(200).json(paymentRequest);
   } catch (error: any) {
@@ -71,4 +71,13 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
   }
 };
 
-
+module.exports.sendemail_post = async (req: Request, res: Response) => {
+  try {
+    sendNotification(req.body, res);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: "Something went wrong. Please try again later",
+    });
+  }
+};

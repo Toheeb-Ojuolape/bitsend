@@ -14,10 +14,23 @@ const payment = useSelector(state => state.payment.value)
 useEffect(() => {
   const socket = io("http://localhost:3000");
   socket.on("payment-completed", () => {
-    invoiceComponent.style.display = "none"
-    successComponent.style.display = "block"
+    axios({
+      method:"POST",
+      url:"http://localhost:3000/send-email",
+      headers:{
+       "Content-Type":"application/json",
+       Accept:"*/*"
+      },
+      data: payment
+    }).then((response)=>{
+      console.log(response)
+      invoiceComponent.style.display = "none"
+      successComponent.style.display = "block"
+    }).catch((error)=>{
+      alert(error)
+    })
   });
-},[invoiceComponent,successComponent])
+},[invoiceComponent,successComponent,payment])
 
 
 useEffect(()=>{
@@ -29,7 +42,7 @@ useEffect(()=>{
             Accept:"*/*"
         },
         data:{
-          amount:payment.sats.toString()
+          amount:(Math.floor(payment.sats)).toString()
         }
 
     }).then((response)=>{
@@ -39,8 +52,8 @@ useEffect(()=>{
 
   return (
     <div className="container">
-      <InvoiceComponent invoice={invoice}/>
-      <SuccessComponent />
+      <InvoiceComponent invoice={invoice} payment={payment}/>
+      <SuccessComponent payment={payment}/>
     </div>
   )
 }
