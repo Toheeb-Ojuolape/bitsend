@@ -7,58 +7,90 @@ import InputText from "../Forms/InputText";
 import axios from "axios";
 import Loader from "../Loaders/Overlay";
 import InputEmail from "../Forms/InputEmail";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setPayment } from "../../store/payment";
 
 function RecipientForm(props) {
-  const [email,setEmail] = React.useState("")
-  const [selectedOption, setSelectedOption] = React.useState("");
-  const [accountName,setAccountName] = React.useState("")
+  const [email, setEmail] = React.useState("");
+  const [bank, setBank] = React.useState("");
+  const [accountName, setAccountName] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [accountNumer, setAccountNumberValue] = React.useState("");
+  const dispatch = useDispatch();
+  const history = useNavigate();
+  const payment = useSelector(state=>state.payment.value)
 
-  const setAccountNumber = (e) =>{
-    if(e.length === 10){
-        setLoading(true)
-        axios({
-            method:"POST",
-            url:"http://localhost:3001/resolve-bank",
-            headers:{
-                "Content-Type":"application/json",
-                Accept:"*/*"
-            },
-            data:{
-                bank:props.bank && props.bank.filter((bank)=>bank.name ===selectedOption)[0].code,
-                accountNumber:e
-            }
-        }).then((response)=>{
-            setAccountName(response.data.data.account_name)
-            setLoading(false)
-            console.log(email)
-        }).catch((error)=>{
-            console.log(error)
-            setLoading(false)
+  const continuePayment = () => {
+    const value = {
+      email: email,
+      bank:
+        props.bank && props.bank.filter((bankId) => bankId.name === bank)[0].code,
+      bankName:bank,
+      accountName: accountName,
+      accountNumber: accountNumer,
+    };
+    dispatch(setPayment({...payment,...value}));
+    history("/invoice");
+  };
+
+  const setAccountNumber = (e) => {
+    if (e.length === 10) {
+      setAccountNumberValue(e);
+      setLoading(true);
+      axios({
+        method: "POST",
+        url: "http://localhost:3000/resolve-bank",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+        data: {
+          bank:
+            props.bank &&
+            props.bank.filter((bankId) => bankId.name === bank)[0].code,
+          accountNumber: e,
+        },
+      })
+        .then((response) => {
+          setAccountName(response.data.data.account_name);
+          setLoading(false);
+          console.log(email);
         })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
     }
-  }
+  };
 
   return (
     <div className="paymentContainer">
       <div className="paymentCard">
-      {loading && <Loader />}
+        {loading && <Loader />}
 
-      <InputEmail onChange={(e)=>setEmail(e)} disabled={false} label={"Recipient Email (required)"}/>
+        <InputEmail
+          onChange={(e) => setEmail(e)}
+          disabled={false}
+          label={"Recipient Email (required)"}
+        />
 
         <SearchForm
           label={"Choose Bank (required)"}
           options={props.bank}
-          onChange={(event) => setSelectedOption(event.target.value)}
+          onChange={(event) => setBank(event.target.value)}
         />
 
-        <InputNumber onChange={(e)=>setAccountNumber(e)} label={"Account Number"} />
+        <InputNumber
+          onChange={(e) => setAccountNumber(e)}
+          label={"Account Number"}
+        />
 
         <InputText value={accountName} disabled={true} label={"Account Name"} />
         <PrimaryBtn
-          disabled={accountName === ""? true : false}
+          disabled={accountName === "" ? true : false}
           title={"Continue"}
+          onClick={continuePayment}
         />
       </div>
     </div>

@@ -28,7 +28,7 @@ useEffect(()=>{
             Accept:"*/*"
         },
         data:{
-          amount:"500"
+          amount:"300"
         }
 
     }).then((response)=>{

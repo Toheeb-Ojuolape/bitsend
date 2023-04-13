@@ -21,7 +21,7 @@ module.exports.converter_post = async (req: Request, res: Response) => {
 module.exports.fetchBanks_post = async (req: Request, res: Response) => {
   var options = {
     method: "GET",
-    url: "https://api.flutterwave.com/v3/banks/NG",
+    url: "https://api.flutterwave.com/v3/banks/"+req.body.country,
     headers: {
       Authorization: "Bearer " + process.env.FLUTTERWAVE_SECRET_KEY,
     },
@@ -60,7 +60,10 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
 
     const { paymentRequest } = await lnRpcClient.addInvoice({
       value: req.body.amount,
+      expiry:"300000"
     })
+    console.log(paymentRequest)
+
     res.status(200).json(paymentRequest);
   } catch (error: any) {
     console.log(error);
@@ -69,16 +72,3 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
 };
 
 
-
-module.exports.checkInvoice_post = async (req: Request, res:Response) => {
-  try {
-    // const {invoice}= req.param
-    let dataReturn = {}
-    let stream = node.subscribeInvoices({})
-    console.log(stream)
-    
-
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-}

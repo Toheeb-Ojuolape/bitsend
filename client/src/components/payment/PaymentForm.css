@@ -127,3 +127,10 @@ div {
   .hiddenComponent{
     display:none
   }
+
+  .countdown{
+    background:#ffecff;
+    color:#753ff6;
+    padding:10px 12px;
+    margin:14px 0px 0px 0px
+  }

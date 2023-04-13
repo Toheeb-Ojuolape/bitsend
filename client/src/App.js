@@ -2,14 +2,13 @@ import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 import Home from "./components/home/Home";
-import CreatePost from "./components/createPost/CreatePost";
-import Post from "./components/post/Post";
-import Paywall from "./components/paywall/Paywall";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Recipient from "./pages/Recipient";
 import Invoice from "./pages/Invoice";
 import { io } from "socket.io-client";
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -72,14 +71,13 @@ function App() {
           </div>
         )}
       </nav>
+      <Provider store={store}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/createpost" element={<CreatePost />} />
-        <Route path="/post/:postId" element={<Post />} />
-        <Route path="/paywall" element={<Paywall />} />
         <Route path="/recipient" element={<Recipient />} />
         <Route path="/invoice" element={<Invoice />} />
       </Routes>
+     </Provider>
     </div>
   );
 }

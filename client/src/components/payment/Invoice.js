@@ -2,6 +2,7 @@ import React from "react";
 import QRCode from "react-qr-code";
 import { MdCopyAll } from "react-icons/md";
 import {toast,Toaster} from "react-hot-toast"
+import Countdown from "./Countdown";
 
 function Invoice(props) {
 
@@ -12,6 +13,7 @@ function Invoice(props) {
   return (
     <div id="invoice" className="text-center">
       <Toaster/>
+      <Countdown />
       <h2>Scan to Pay </h2>
       <QRCode
         size={256}

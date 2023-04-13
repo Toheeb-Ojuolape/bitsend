@@ -4,13 +4,37 @@ import InputWithSelect from "../Forms/InputWithSelect";
 import { MdRefresh } from "react-icons/md";
 import PrimaryBtn from "../Buttons/PrimaryBtn";
 import { useNavigate } from "react-router-dom";
+import Select from "../Forms/Select";
+import { setPayment } from "../../store/payment";
+import {useDispatch} from "react-redux"
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function PaymentForm(props) {
   const [value, setValue] = React.useState("");
+  const [destination,setDestination] = React.useState("")
   const history = useNavigate()
+  const dispatch = useDispatch()
+  const payment = useSelector(state=>state.payment.value)
+
 
   const nextStep = () =>{
-    history("/recipient")
+    axios({
+      method:"GET",
+      url:"https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms="+props.newCurrency,
+      headers:{
+        Authorization:"Apikey 86d1a3aae01e824d0545ebe7dc6f355993b48cebe2dc06b670db2d6dfe564702"
+      }
+    }).then((response)=>{
+      const value = {
+        amount:12,
+        currency:props.newCurrency,
+        destination:destination,
+        sats:(1/response.data[props.newCurrency])*100000000
+      }
+      dispatch(setPayment(value))
+      history("/recipient")
+    })
   }
   return (
     <div className="paymentContainer">
@@ -33,6 +57,9 @@ function PaymentForm(props) {
           label={"Recipient Gets"}
           currencyValue={props.currency}
         />
+
+    
+        <Select setDestination={(e)=>setDestination(e)}/>
 
         <PrimaryBtn onClick={nextStep} disabled={value === ""? true : false} title={"Make Payment"}/>
       </div>
