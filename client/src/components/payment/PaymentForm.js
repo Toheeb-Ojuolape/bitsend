@@ -17,6 +17,22 @@ function PaymentForm(props) {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
 
+  const foreignCurrencies = [
+    { name: "NGN", value: "NGN" },
+    { name: "USD", value: "USD" },
+    { name: "GBP", value: "GBP" },
+    { name: "EUR", value: "EUR" },
+  ];
+
+  const localCurrencies = [
+    { name: "KES", value: "KES" },
+    { name: "NGN", value: "NGN" },
+    { name: "GHS", value: "GHS" },
+    { name: "ZAR", value: "ZAR" },
+    { name: "TZS", value: "TZS" },
+    { name: "UGX", value: "UGX" },
+  ];
+
   const nextStep = () => {
     setLoading(true);
     axios({
@@ -29,12 +45,20 @@ function PaymentForm(props) {
           "Apikey 86d1a3aae01e824d0545ebe7dc6f355993b48cebe2dc06b670db2d6dfe564702",
       },
     }).then((response) => {
-      console.log(response.data[props.newCurrency])
+      console.log(response.data[props.newCurrency]);
       const payload = {
         amount: value ? value : props.payment.amount,
-        currency: props.newCurrency ? props.newCurrency : props.payment.currency,
-        destination: destination ? destination: props.payment.destination,
-        sats: ((value ? value:props.payment.amount) * 1 / response.data[props.newCurrency]) * 100000000,
+        currency: props.newCurrency
+          ? props.newCurrency
+          : props.payment.currency,
+        localAmount:
+          value === "" ? props.payment.amount * props.rate : value * props.rate,
+        localCurrency: props.currency ? props.currency : props.payment.currency,
+        destination: destination ? destination : props.payment.destination,
+        sats:
+          (((value ? value : props.payment.amount) * 1) /
+            response.data[props.newCurrency]) *
+          100000000,
       };
       dispatch(setPayment(payload));
       setLoading(false);
@@ -44,7 +68,7 @@ function PaymentForm(props) {
   return (
     <div className="paymentContainer">
       <div className="paymentCard">
-      {loading && <Loader />}
+        {loading && <Loader />}
         <div className="chip">
           {props.newCurrency} 1 = {props.currency} {props && props.rate}
         </div>
@@ -56,23 +80,33 @@ function PaymentForm(props) {
           currencyValue={props.newCurrency}
           readonly={false}
           defaultValue={props.payment.amount}
+          currencies={foreignCurrencies}
         />
         <div className="refreshIcon">
           <ReloadIcon />
         </div>
         <label>Recipient gets</label>
         <InputWithSelect
-          value={value === "" ? props.payment.amount * props.rate :  value * props.rate}
-        
+          value={
+            value === ""
+              ? props.payment.amount * props.rate
+              : value * props.rate
+          }
+          currencies={localCurrencies}
           currencyValue={props.currency}
           readonly={true}
         />
 
-        <Select setDestination={(e) => setDestination(e)} value={props.payment.destination} />
+        <Select
+          setDestination={(e) => setDestination(e)}
+          value={props.payment.destination}
+        />
 
         <PrimaryBtn
           onClick={nextStep}
-          disabled={value === "" && props.payment.amount === undefined ? true : false}
+          disabled={
+            value === "" && props.payment.amount === undefined ? true : false
+          }
           title={"Make Payment"}
         />
       </div>

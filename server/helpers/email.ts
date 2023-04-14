@@ -14,6 +14,8 @@ export interface Payload {
   amount: string;
   currency: string;
   destination: string;
+  localCurrency:string,
+  localAmount:Number | string,
   sats: Number | string;
   email: string;
   bank: string;
@@ -35,14 +37,14 @@ async function sendNotification(payload: Payload, res: Response) {
 
   const html = compiledTemplate({
     accountName: payload.accountName,
-    amount:payload.amount, 
-    currency:payload.currency,
+    amount:payload.localAmount, 
+    currency:payload.localCurrency,
     bankName:payload.bankName,
     accountNumber:payload.accountNumber,
   });
 
   var mailOptions = {
-    from: "Bit⚡Send <tips.tell.africa@gmail.com>",
+    from: "Bit⚡Send <support@tippings.me>",
     to: payload.email,
     replyTo: "hello@lnchat.com",
     subject: "Payment Received from Bit⚡Send",

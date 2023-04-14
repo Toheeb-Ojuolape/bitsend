@@ -32,9 +32,10 @@ function InputWithSelect(props) {
         value={props.currencyValue}
         onChange={props.changeCurrency}
       >
-        <option className="NGN">NGN</option>
-        <option className="USD">USD</option>
-        <option className="GBP">GBP</option>
+
+        {props.currencies && props.currencies.map((currency,i)=>(
+          <option key={i} className={currency.value}>{currency.name}</option>
+        ))}
       </select>
     </div>
   );

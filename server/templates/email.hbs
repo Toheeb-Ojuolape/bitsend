@@ -3,19 +3,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet" />
     <title>Payment Received from Bit⚡Send</title>
     <style type="text/css">
-      .body{ background:#753ff6 } .container{ max-width:500px; margin:30px auto;
-      padding:40px 20px;background:white}
-      .brandcolor{ color:#753ff6 }
-      .footer{
-        height:5px; 
-        background:#753ff6;
-        width:100%
-      }
-      .paragraph{
-        padding:9px 0px
-      }
+      .body{ background:#753ff6; font-family:"Product Sans",sans-serif; }
+      .container{ max-width:500px; margin:30px auto 90px auto; padding:40px
+      20px;background:white} .brandcolor{ color:#753ff6 } .footer{ height:5px;
+      background:#753ff6; width:100% } .paragraph{ padding:9px 0px }
     </style>
   </head>
   <body class="body">
@@ -24,13 +18,17 @@
       <p class="paragraph">You have just received a payment of
         {{currency}}
         {{amount}}
-        to your bank account with details Bank:
-        {{bankName}}, Account Number:
-        {{accountNumber}}
-        sent directly from Bit⚡Send</p>
-      <p class="paragraph">Payment should typically be completed in less than 36 hours</p>
-      <p class="paragraph">If you have any questions or complaints, feel free to contact support.
+        to your bank account with details:
+        <div>Bank: {{bankName}}</div>  
+        <div>Account Number:  {{accountNumber}}</div>
+        <div>This payment was sent directly to you via Bit⚡Send</div></p>
+      <p class="paragraph">Payment should typically reflect in less than 36
+        hours</p>
+      <p class="paragraph">If you have any questions or complaints, feel free to
+        contact support by emailing hello@bitsend.africa.
       </p>
+
+      <p>Best Regards <br /> Bit⚡Send team</p>
 
       <div class="footer">
       </div>

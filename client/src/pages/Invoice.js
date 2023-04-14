@@ -4,16 +4,17 @@ import SuccessComponent from '../components/payment/SuccessComponent';
 import axios from 'axios'
 import { io } from "socket.io-client";
 import { useSelector } from 'react-redux';
+import Loader from '../components/Loaders/Overlay';
 
 function Invoice() {
 const [invoice,setInvoice] = React.useState("")
-const invoiceComponent = document.getElementById("invoice")
-const successComponent = document.getElementById("success")
+const [loading,setLoading] = React.useState(false)
 const payment = useSelector(state => state.payment.value)
 
 useEffect(() => {
   const socket = io("http://localhost:3000");
   socket.on("payment-completed", () => {
+    setLoading(true)
     axios({
       method:"POST",
       url:"http://localhost:3000/send-email",
@@ -23,14 +24,15 @@ useEffect(() => {
       },
       data: payment
     }).then((response)=>{
+      setLoading(false)
       console.log(response)
-      invoiceComponent.style.display = "none"
-      successComponent.style.display = "block"
+      document.getElementById("invoice").style.display = "none"
+      document.getElementById("success").style.display = "block"
     }).catch((error)=>{
       alert(error)
     })
   });
-},[invoiceComponent,successComponent,payment])
+},[payment])
 
 
 useEffect(()=>{
@@ -52,6 +54,7 @@ useEffect(()=>{
 
   return (
     <div className="container">
+      {loading && <Loader/>}
       <InvoiceComponent invoice={invoice} payment={payment}/>
       <SuccessComponent payment={payment}/>
     </div>

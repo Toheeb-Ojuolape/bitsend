@@ -3,6 +3,7 @@ import successGif from "../../assets/success.gif";
 
 function SuccessComponent(props) {
   const goHome = () => {
+    sessionStorage.removeItem("sessionDetails")
     window.location.href = "/";
   };
   return (

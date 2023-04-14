@@ -30,6 +30,7 @@ function App() {
     }).then((res) => {
       res.data.id ? setUser(res.data.id) : setUser(null);
       console.log(res);
+      sessionStorage.setItem("userId",res.data.id)
     });
   }, [socket]);
 
@@ -49,6 +50,7 @@ function App() {
     }).then((res) => {
       setUser(null);
       console.log(res);
+      window.location.href="/"
     });
   };
 

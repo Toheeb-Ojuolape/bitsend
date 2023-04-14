@@ -8,6 +8,7 @@ const routes = require("./routes/router");
 import bodyParser from "body-parser";
 import { initNode, node } from "./helpers/node";
 import { Socket } from "socket.io";
+import { Session } from "express-session";
 
 const app = express();
 app.use(bodyParser.json());
@@ -105,15 +106,24 @@ app.get("/user", (req: Request, res: Response) => {
   res.send(req.user);
 });
 
-app.get("/logout", function (req: Request, res: Response, next: NextFunction) {
-  if (req.user) {
-    // req.session.destroy(e)
-    res.json({ message: "user logged out" });
-    // Already authenticated.
-    return res.redirect("http://localhost:3001/");
+app.get(
+  "/logout",
+  function (
+    req: Request<{}, {}, {}, {}, Session>,
+    res: Response,
+    next: NextFunction
+  ) {
+    if (req.user) {
+      req.session.destroy(function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.json({ message: "user logged out" })
+      });
+    }
+    next();
   }
-  next();
-});
+);
 
 app.use(routes);
 
@@ -121,9 +131,9 @@ initNode().then(() => {
   console.log("Lightning node initialized!");
   console.log("Starting server...");
   io.on("connection", async (socket: Socket) => {
-    let subscriber = await node.subscribeInvoices()
+    let subscriber = await node.subscribeInvoices();
     subscriber.on("data", (invoice) => {
-      console.log(invoice)
+      console.log(invoice);
       if (invoice.settled === true) {
         socket.emit("payment-completed", invoice);
       }
