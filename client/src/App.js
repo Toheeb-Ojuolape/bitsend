@@ -14,8 +14,7 @@ import { Provider } from "react-redux";
 
 function App() {
   const [user, setUser] = useState(null);
-  let navigate = useNavigate();
-  const socket = io("http://localhost:3000");
+  let navigate = useNavigate()
 
   useEffect(() => {
     const socket = io("http://localhost:3000");
@@ -32,7 +31,7 @@ function App() {
       console.log(res);
       sessionStorage.setItem("userId",res.data.id)
     });
-  }, [socket]);
+  }, []);
 
   const navigateHome = () => {
     navigate("/");
