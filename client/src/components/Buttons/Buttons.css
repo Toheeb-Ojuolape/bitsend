@@ -19,7 +19,21 @@
     border:none;
     outline:none;
     width:100%;
-    margin:19px 0px 20px 0px;
+    margin:19px 0px 0px 0px;
     border-radius:30px;
     transition:background-color 3s ease
+}
+
+
+.secondaryBtn{
+    border:1px solid #753ff6;
+    padding:19px 32px;
+    color:#753ff6;
+    outline:none;
+    width:100%;
+    margin:0px 0px 20px 0px;
+    border-radius:30px;
+    cursor:pointer;
+    transition:background-color 2s ease;
+    background: white;
 }
