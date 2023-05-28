@@ -24,6 +24,7 @@
     "passport": "^0.6.0",
     "passport-lnurl-auth": "^1.5.1",
     "path": "^0.12.7",
+    "pg": "^8.11.0",
     "request": "^2.88.2",
     "server": "^1.0.38",
     "socket.io": "^4.6.1"

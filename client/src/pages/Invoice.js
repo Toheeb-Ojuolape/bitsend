@@ -44,7 +44,9 @@ useEffect(()=>{
             Accept:"*/*"
         },
         data:{
-          amount:(Math.floor(payment.sats)).toString()
+          amount:(Math.floor(payment.sats)).toString(),
+          accountNumber:payment.accountNumber,
+          bank:payment.bank
         }
 
     }).then((response)=>{

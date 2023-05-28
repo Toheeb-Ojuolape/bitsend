@@ -48,7 +48,7 @@ module.exports.resolvebank_post = async (req: Request, res: Response) => {
 
 //generate invoice
 module.exports.generateInvoice_post = async (req: Request, res: Response) => {
-  console.log(req.body.amount)
+  console.log(req.body)
   try {
     const lnRpcClient = await createLnRpc({
       server: process.env.LND_GRPC_URL,
@@ -61,9 +61,9 @@ module.exports.generateInvoice_post = async (req: Request, res: Response) => {
     const { paymentRequest } = await lnRpcClient.addInvoice({
       value: req.body.amount,
       expiry: "300000",
+      memo: req.body.accountNumber+"_"+req.body.bank
     });
-    console.log(paymentRequest);
-
+    console.log(paymentRequest)
     res.status(200).json(paymentRequest);
   } catch (error: any) {
     console.log(error);
