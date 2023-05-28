@@ -48,7 +48,7 @@ function Home(props) {
   }
 
   return (
-    <div className="homePage">
+    <div id={props.id} className="homePage">
       <PaymentForm
         rate={rate}
         currency={currency}

@@ -11,7 +11,9 @@ import { Socket } from "socket.io";
 import { Session } from "express-session";
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
+
+
 
 interface User {
   id: string;
