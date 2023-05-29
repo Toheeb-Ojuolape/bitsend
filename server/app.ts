@@ -6,7 +6,7 @@ import cors from "cors";
 import path from "path";
 const routes = require("./routes/router");
 import bodyParser from "body-parser";
-import { initNode, node } from "./helpers/node";
+// import { initNode, node } from "./helpers/node";
 import { Socket } from "socket.io";
 import { Session } from "express-session";
 
@@ -129,22 +129,22 @@ app.get(
 
 app.use(routes);
 
-initNode().then(() => {
-  console.log("Lightning node initialized!");
-  console.log("Starting server...");
-  io.on("connection", async (socket: Socket) => {
-    let subscriber = await node.subscribeInvoices();
-    subscriber.on("data", (invoice) => {
-      console.log(invoice);
-      if (invoice.settled === true) {
-        socket.emit("payment-completed", invoice);
-      }
-    });
-    socket.on("disconnect", () => {
-      console.log("A user disconnected.");
-    });
-  });
-});
+// initNode().then(() => {
+//   console.log("Lightning node initialized!");
+//   console.log("Starting server...");
+//   io.on("connection", async (socket: Socket) => {
+//     let subscriber = await node.subscribeInvoices();
+//     subscriber.on("data", (invoice) => {
+//       console.log(invoice);
+//       if (invoice.settled === true) {
+//         socket.emit("payment-completed", invoice);
+//       }
+//     });
+//     socket.on("disconnect", () => {
+//       console.log("A user disconnected.");
+//     });
+//   });
+// });
 
 const server = app.listen(config.port, config.host, function () {
   console.log("Server listening at " + config.url);

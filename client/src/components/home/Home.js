@@ -12,7 +12,7 @@ function Home(props) {
   useEffect(() => {
     axios({
       method: "POST",
-      url: "http://localhost:3000/converter",
+      url: process.env.REACT_APP_API_URL+"/converter",
       headers: {
         Accept: "*/*",
         ContentType: "application/json",
@@ -31,7 +31,7 @@ function Home(props) {
   const changeCurrency = (currency) =>{
     axios({
       method: "POST",
-      url: "http://localhost:3000/converter",
+      url: process.env.REACT_APP_API_URL+"/converter",
       headers: {
         Accept: "*/*",
         ContentType: "application/json",

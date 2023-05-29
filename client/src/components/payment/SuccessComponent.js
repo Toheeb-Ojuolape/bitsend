@@ -12,7 +12,7 @@ function SuccessComponent(props) {
         <div className="successContainer">
           <img width="200px" src={successGif} alt="success" />
         </div>
-        <p className="successDescription">
+        <div className="successDescription">
           {" "}
           You have successfully made a payment of {props.payment.currency}{" "}
           {props.payment.amount} to <strong className="brandcolor">{props.payment.accountName}</strong> with account
@@ -34,7 +34,7 @@ function SuccessComponent(props) {
             ? `Country: ${props.payment.destination}`
             : ""}
            </p>
-        </p>
+        </div>
 
         <div className="successAction">
           <button onClick={goHome} className="btn-outline">

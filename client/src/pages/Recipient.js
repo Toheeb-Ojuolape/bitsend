@@ -10,7 +10,7 @@ useEffect(()=>{
   console.log(payment.destination)
     axios({
         method:"POST",
-        url:"http://localhost:3000/fetch-banks",
+        url:process.env.REACT_APP_API_URL+"/fetch-banks",
         headers:{
             "Content-Type":"application/json",
             Accept:"*/*"

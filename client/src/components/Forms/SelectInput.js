@@ -16,13 +16,14 @@ const MenuProps = {
   },
 };
 
-export default function SelectInput({ label, countries,defaultValue }) {
+export default function SelectInput({ label, countries,defaultValue,setInput }) {
   const [country, setCountry] = React.useState("");
 
   const handleChange = (e) => {
     const selectedCountry = countries.find((country) => country.code === e.target.value);
     if (selectedCountry) {
       setCountry(selectedCountry.name);
+      setInput(e.target.value)
     }
   };
 
@@ -37,13 +38,13 @@ export default function SelectInput({ label, countries,defaultValue }) {
       <Select
         size={"small"}
         fullWidth={true}
-        defaultValue={defaultValue}
         value={country}
         onChange={handleChange}
         input={
           <OutlinedInput
             id="select-multiple-chip"
             label="Choose your country"
+            notched="false"
           />
         }
         renderValue={(selected) => (
@@ -54,7 +55,7 @@ export default function SelectInput({ label, countries,defaultValue }) {
         MenuProps={MenuProps}
       >
         {countries.map((country, index) => (
-          <MenuItem defaultValue={defaultValue} key={index} value={country.code}>
+          <MenuItem key={index} value={country.code}>
             {country.name}
           </MenuItem>
         ))}

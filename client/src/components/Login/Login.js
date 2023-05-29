@@ -5,7 +5,7 @@ import PrimaryBtn from "../Buttons/PrimaryBtn";
 
 function Login() {
   const goToLogin = () => {
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = process.env.REACT_APP_API_URL+"/login";
   };
   return (
     <div className="loginContainer">

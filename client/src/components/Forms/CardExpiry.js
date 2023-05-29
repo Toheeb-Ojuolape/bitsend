@@ -1,13 +1,14 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const CardExpiry = () => {
+const CardExpiry = ({setInput}) => {
   const [expiry, setExpiry] = useState("");
 
   const handleChange = (e) => {
     const { value } = e.target;
     const formattedExpiry = formatExpiry(value);
     setExpiry(formattedExpiry);
+    setInput(e.target.value)
   };
 
   const formatExpiry = (value) => {

@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const CardCVV = () => {
+const CardCVV = ({setInput}) => {
   const [cvv, setCVV] = useState("");
 
   const handleChange = (e) => {
@@ -12,6 +12,7 @@ const CardCVV = () => {
     }
     e.target.value = value;
     setCVV(value)
+    setInput(value)
   };
 
   return (

@@ -1,8 +1,8 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const CardNumber = () => {
-  const [cardNumber, setCardNumber] = useState("");
+const CardNumber = ({setInput}) => {
+  const [cardNumber, setCardNumber] = useState(undefined);
 
   const formatCardNumber = (value) => {
     const sanitizedValue = value.replace(/\s/g, "").slice(0, 16); // Remove spaces and limit to 16 digits
@@ -24,6 +24,7 @@ const CardNumber = () => {
     // Apply the card number formatting
     const formattedCardNumber = formatCardNumber(value);
     setCardNumber(formattedCardNumber);
+    setInput(e.target.value)
   };
 
   return (
