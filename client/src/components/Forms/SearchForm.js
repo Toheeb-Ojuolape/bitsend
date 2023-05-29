@@ -23,6 +23,7 @@ const SearchForm = ({ options, label, value, onChange,defaultValue }) => {
       input={
         <OutlinedInput
           label={label}
+          notched="false"
           startAdornment={
             <InputBase
               placeholder='Search…'

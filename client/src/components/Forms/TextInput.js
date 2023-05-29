@@ -1,7 +1,10 @@
 import React from "react";
 import { TextField } from "@mui/material";
 
-function TextInput({ label, type,helper }) {
+function TextInput({ label, type,helper,setInput }) {
+  const setValue = (e) =>{
+   setInput(e)
+  }
   return (
     <div>
       <label className="label">{label}</label>
@@ -14,6 +17,7 @@ function TextInput({ label, type,helper }) {
         variant={"outlined"}
         helperText={helper}
         style={{margin:"6px 0px 0px 0px",paddingTop:"0px"}}
+        onChange={(e)=>setValue(e.target.value)}
       />
     </div>
   );

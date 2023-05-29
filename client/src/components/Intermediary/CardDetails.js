@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./intermediary.css";
 import IconBtn from "../Buttons/IconBtn";
 import { MdArrowBack } from "react-icons/md";
@@ -6,19 +6,52 @@ import PrimaryBtn from "../Buttons/PrimaryBtn";
 import CardExpiry from "../Forms/CardExpiry";
 import CardCVV from "../Forms/CardCVV";
 import CardNumber from "../Forms/CardNumber";
+import axios from 'axios'
+import Loader from "../Loaders/Overlay";
 
-function CardDetails({ goBack,id }) {
+function CardDetails({ goBack, id }) {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiry, setCardExpiry] = useState("");
+  const [cvv, setCvv] = useState("");
+
+
+  useEffect(()=>{
+    if(cardNumber !=="" && expiry !=="" && cvv !==""){
+      setDisabled(false)
+    }
+    else{
+      setDisabled(true)
+    }
+  },[cardNumber,expiry,cvv])
 
   const saveDetails = () => {
     // show the next form
-    setLoading(false)
-    setDisabled(false)
+    setLoading(true)
+    axios({
+      method:"POST",
+      url:process.env.REACT_APP_API_URL+"/create-card",
+      data:{
+        id:sessionStorage.getItem("userId"),
+        cardNo:cardNumber,
+        cardcvv:cvv,
+        cardexpiry:expiry
+      }
+    }).then((response)=>{
+      console.log(response)
+      setLoading(false)
+    }).catch((error)=>{
+      console.log(error)
+      setLoading(false)
+    })
   };
 
+  
+
   return (
-    <div id={id} className="formContainer hiddenForm">
+    <div id={id} className="intermediaryContainer hiddenForm">
+       {loading && <Loader />}
       <IconBtn
         onClick={() => goBack()}
         icon={<MdArrowBack />}
@@ -36,14 +69,12 @@ function CardDetails({ goBack,id }) {
       </p>
 
       <div className="userDetailsForm">
-        <CardNumber />
-
+        <CardNumber setInput={(e) => setCardNumber(e)} />
 
         <div className="cardDetails">
-        <CardExpiry />
-        <CardCVV />
+          <CardExpiry setInput={(e) => setCardExpiry(e)} />
+          <CardCVV setInput={(e) => setCvv(e)} />
         </div>
-
 
         <PrimaryBtn
           title={"Save Card Details"}

@@ -17,7 +17,7 @@ function App() {
   let navigate = useNavigate()
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
+    const socket = io(process.env.REACT_APP_API_URL);
     socket.on("connect", () => {
       console.log("Connected to server.");
     });
@@ -25,7 +25,7 @@ function App() {
     axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3000/user",
+      url: process.env.REACT_APP_API_URL+"/user",
     }).then((res) => {
       res.data.id ? setUser(res.data.id) : setUser(null);
       console.log(res);
@@ -38,14 +38,14 @@ function App() {
   };
 
   const navigateLogin = () => {
-    window.location.replace("http://localhost:3000/login");
+    window.location.replace(process.env.REACT_APP_API_URL+"/login");
   };
 
   const navigateLogout = () => {
     axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3000/logout",
+      url: process.env.REACT_APP_API_URL+"/logout",
     }).then((res) => {
       setUser(null);
       console.log(res);

@@ -43,7 +43,7 @@ function RecipientForm(props) {
       setLoading(true);
       axios({
         method: "POST",
-        url: "http://localhost:3000/resolve-bank",
+        url: process.env.REACT_APP_API_URL+"/resolve-bank",
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",

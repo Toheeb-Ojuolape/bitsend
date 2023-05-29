@@ -8,9 +8,10 @@ const client = new Client({
   database: "bitsend",
 });
 
+client.connect();
 
 client.on("connect", ()=>{
-    console.log("Database connect")
+    console.log("Database connected")
 })
 
 client.on("end",() =>{
