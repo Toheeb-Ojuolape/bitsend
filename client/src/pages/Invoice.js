@@ -6,12 +6,14 @@ import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loaders/Overlay";
 import ShowIntermediaryModal from "../components/Modals/ShowIntermediaryModal";
+import Swal from "sweetalert2"
 
 function Invoice() {
   const [invoice, setInvoice] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
   const [users, setUsers] = React.useState([]);
+  const [user,setUser] = React.useState("")
   const payment = useSelector((state) => state.payment.value);
 
   useEffect(() => {
@@ -63,6 +65,7 @@ function Invoice() {
 
   const generateInvoice = (data) => {
     console.log(data)
+    setUser(data)
     setShowModal(false);
     setLoading(true);
     axios({
@@ -83,33 +86,18 @@ function Invoice() {
       },
     })
       .then((response) => {
-        console.log(response);
+        setInvoice(response.data.data.payment_request)
         setLoading(false)
       })
       .catch((error) => {
         setLoading(false)
-        console.log(error);
+        Swal.fire({
+          icon:"error",
+          title:"Something's wrong 🤔",
+          text:error.response.data.message
+        })
       });
   };
-
-  // useEffect(()=>{
-  //     axios({
-  //         method:"POST",
-  //         url:process.env.REACT_APP_API_URL+"/generate-invoice",
-  //         headers:{
-  //             "Content-Type":"application/json",
-  //             Accept:"*/*"
-  //         },
-  //         data:{
-  //           amount:(Math.floor(payment.sats)).toString(),
-  //           accountNumber:payment.accountNumber,
-  //           bank:payment.bank
-  //         }
-
-  //     }).then((response)=>{
-  //         setInvoice(response.data)
-  //     })
-  // },[payment])
 
   const onClose = () => {
     setShowModal(false);
@@ -118,7 +106,7 @@ function Invoice() {
   return (
     <div className="container">
       {loading && <Loader />}
-      <InvoiceComponent invoice={invoice} payment={payment} />
+      <InvoiceComponent invoice={invoice} payment={payment} user={user} />
       <ShowIntermediaryModal
         showModal={showModal}
         onClose={onClose}
