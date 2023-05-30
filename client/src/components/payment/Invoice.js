@@ -14,7 +14,7 @@ function Invoice(props) {
     <div id="invoice" className="text-center">
       <Toaster/>
       <Countdown />
-      <h3>Scan to Pay </h3>
+      <h3>Scan to Pay {props.user.name}</h3>
       <p className="brandcolor"> Invoice amount: {props.payment.sats.toFixed(0)} sats ({props.payment.currency} {props.payment.amount})</p>
       <QRCode
         size={256}

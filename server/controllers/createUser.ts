@@ -16,8 +16,6 @@ export const createuser_post = async (req: Request, res: Response) => {
 
     (async () => {
       try {
-        // Connect to the database
-        await client.connect();
         // Perform the database operation
         const result = await client.query(
           `insert into users(name, email, country,accesstoken,refreshtoken,pubkey) values($1, $2, $3, $4,$5,$6) RETURNING id`,
