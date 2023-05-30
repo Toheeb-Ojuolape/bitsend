@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "./Modal";
 import UserComponent from "../Intermediary/UserComponent";
+import ReactCountryFlag from "react-country-flag"
 
 function ShowIntermediaryModal({
   showModal,
@@ -14,7 +15,7 @@ function ShowIntermediaryModal({
       <h2 className="text-center">Choose an Intermediary 👤:</h2>
       <p className="text-center">
         There are <span className="brandcolor">{data && data.length}</span>{" "}
-        available users from {destination}:
+        available users from <ReactCountryFlag countryCode={destination} svg />:
       </p>
       <div className="userComponent">
         {data &&
