@@ -11,22 +11,15 @@ export const generateInvoice_post = async (req: Request, res: Response) => {
     //use refreshToken to generate fresh accessToken
     const response: any = await fetchAccessToken(req);
     const accessToken = JSON.parse(response);
-    console.log(accessToken.refresh_token);
     //update the user's refreshToken with the new refreshToken
     (async () => {
       try {
-        console.log("accessToken", accessToken.refresh_token, req.body.id);
         // Perform the database operation
         const result = await client.query(
           `UPDATE users SET refreshtoken = $1 WHERE id = $2`,
           [accessToken.refresh_token, req.body.id]
         );
         // Handle success and send response
-        if (result.rowCount) {
-          console.log("User refresh token updated successfully!");
-        } else {
-          console.log("User not found or refresh token not updated.");
-        }
         return;
       } catch (error: any) {
         return;
