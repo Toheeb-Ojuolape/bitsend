@@ -91,6 +91,7 @@ function Invoice() {
       })
       .catch((error) => {
         setLoading(false)
+        console.log(error)
         Swal.fire({
           icon:"error",
           title:"Something's wrong 🤔",
