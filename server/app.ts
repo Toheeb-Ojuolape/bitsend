@@ -129,8 +129,20 @@ app.get(
 
 app.use(routes);
 
-// initNode().then(() => {
-//   console.log("Lightning node initialized!");
+
+const server = app.listen(config.port, config.host, function () {
+  console.log("Server listening at " + config.url);
+});
+
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: ["http://localhost:3001"],
+  },
+});
+
+
+// console.log("Lightning node initialized!");
 //   console.log("Starting server...");
 //   io.on("connection", async (socket: Socket) => {
 //     let subscriber = await node.subscribeInvoices();
@@ -142,19 +154,22 @@ app.use(routes);
 //     });
 //     socket.on("disconnect", () => {
 //       console.log("A user disconnected.");
-//     });
-//   });
-// });
+//     })
+//   })
 
-const server = app.listen(config.port, config.host, function () {
-  console.log("Server listening at " + config.url);
-});
 
-const io = require("socket.io")(server, {
-  cors: {
-    origin: ["http://localhost:3001"],
-  },
-});
+
+//check if the invoice is settled. If it is settled, then run the next step functions
+
+io.on("connection", async (socket: Socket) => {
+  console.log("User connected", socket.id);
+  socket.on("payment-completed", (message) => {
+    io.emit("is-typing",message)
+  });
+  socket.on("disconnect", () => {
+    console.log("A user disconnected.");
+  })
+})
 
 process.on("uncaughtException", (error: Error) => {
   console.error(error);

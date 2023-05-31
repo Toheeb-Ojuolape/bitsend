@@ -46,7 +46,7 @@ function Home() {
       <IntermediaryModal
         title={"Become a BitSend Intermediary! ⚡"}
         description={
-          "Enable open-source remittance to and within Africa by providing BitSend access to your Lightning wallet for off-ramp payments to users"
+          "Enable open-source remittance to and within Africa by providing BitSend access to your Lightning wallet for off-ramp payments to recipients"
         }
         btnTitle={"Yes, enrol me"}
         onClick={() => showIntermediary()}

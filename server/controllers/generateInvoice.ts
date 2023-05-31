@@ -3,7 +3,6 @@ import fetchAccessToken from "../helpers/fetchAccessToken";
 import { handleErrors, handleSuccess } from "../helpers/handlers";
 import client from "../database/database";
 import generateInvoice from "../helpers/generateInvoice";
-var request = require("request");
 
 //generate invoice
 export const generateInvoice_post = async (req: Request, res: Response) => {
@@ -20,6 +19,7 @@ export const generateInvoice_post = async (req: Request, res: Response) => {
           [accessToken.refresh_token, req.body.id]
         );
         // Handle success and send response
+        console.log("refreshToken updated")
         return;
       } catch (error: any) {
         return;
@@ -27,6 +27,7 @@ export const generateInvoice_post = async (req: Request, res: Response) => {
     })();
    
     const info:any = await generateInvoice(accessToken,req)
+    console.log(info)
     if(JSON.parse(info).error){
       handleErrors(res,JSON.parse(info))
       return
@@ -38,6 +39,7 @@ export const generateInvoice_post = async (req: Request, res: Response) => {
     })
 
   } catch (error: any) {
+    console.log("catch error",error)
     handleErrors(res, { message: error.message });
   }
 };
