@@ -117,7 +117,7 @@ app.get(
     next: NextFunction
   ) {
     if (req.user) {
-      req.session.destroy(function (err) {
+      req.session.destroy(function (err:any) {
         if (err) {
           return next(err);
         }
@@ -179,7 +179,7 @@ process.on("uncaughtException", (error: Error) => {
 process.on("beforeExit", (code: number) => {
   try {
     server.close();
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
   }
   process.exit(code);
