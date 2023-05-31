@@ -3,7 +3,8 @@ import QRCode from "react-qr-code";
 import { MdCopyAll } from "react-icons/md";
 import {toast,Toaster} from "react-hot-toast"
 import Countdown from "./Countdown";
-import ReactCountryFlag from "react-country-flag"
+import ReactCountryFlag from "react-country-flag" 
+import { formatAmount } from "../util/formatter";
 
 function Invoice(props) {
 
@@ -16,7 +17,7 @@ function Invoice(props) {
       <Toaster/>
       <Countdown />
       <h3>Scan to Pay {props.user.name} <ReactCountryFlag countryCode={props.user.country} svg /></h3>
-      <p className="brandcolor"> Invoice amount: {props.payment.sats.toFixed(0)} sats ({props.payment.currency} {props.payment.amount})</p>
+      <p className="brandcolor"> Invoice amount: {formatAmount(props.payment.sats)} sats ({props.payment.currency} {props.payment.amount})</p>
       <QRCode
         size={256}
         style={{ height: "auto", maxWidth: "100%", width: "100%" }}

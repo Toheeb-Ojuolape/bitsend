@@ -36,7 +36,7 @@ function UserDetails({ goBack, next, id,code }) {
         name,
         email,
         country,
-        pubKey: sessionStorage.getItem("userId"),
+        pubkey: sessionStorage.getItem("userId"),
         code
       },
     })
@@ -54,6 +54,7 @@ function UserDetails({ goBack, next, id,code }) {
         })
       })
       .catch((error) => {
+        console.log(error)
         setLoading(false);
         console.log(error.response.data);
         Swal.fire({
