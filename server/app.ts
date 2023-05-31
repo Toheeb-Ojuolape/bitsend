@@ -1,3 +1,4 @@
+declare const process: any;
 import express, { Request, Response, NextFunction } from "express";
 const LnurlAuth = require("passport-lnurl-auth");
 const passport = require("passport");
@@ -12,8 +13,8 @@ import { Session } from "express-session";
 const port = 3000
 
 const config = {
-  host: process.env.API_HOST || "localhost",
-  url: process.env.API_URL || "/",
+  host: process.env.API_HOST,
+  url: process.env.API_URL,
 };
 
 const app = express();

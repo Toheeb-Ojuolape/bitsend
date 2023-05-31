@@ -16,6 +16,7 @@ function PaymentForm(props) {
   const history = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(true)
 
   const foreignCurrencies = [
     { name: "NGN", value: "NGN" },
@@ -33,6 +34,16 @@ function PaymentForm(props) {
     { name: "UGX", value: "UGX" },
   ];
 
+
+  React.useEffect(()=>{
+    if(value === ""  && destination === ""){
+      setDisabled(true)
+    }
+    else{
+      setDisabled(false)
+    }
+  },[value,destination,props])
+
   const nextStep = () => {
     setLoading(true);
     axios({
@@ -42,10 +53,9 @@ function PaymentForm(props) {
         props.newCurrency,
       headers: {
         Authorization:
-          "Apikey 86d1a3aae01e824d0545ebe7dc6f355993b48cebe2dc06b670db2d6dfe564702",
+          "Apikey "+process.env.REACT_APP_CRYPTO_PRICES,
       },
     }).then((response) => {
-      console.log(response.data[props.newCurrency]);
       const payload = {
         amount: value ? value : props.payment.amount,
         currency: props.newCurrency
@@ -104,9 +114,7 @@ function PaymentForm(props) {
 
         <PrimaryBtn
           onClick={nextStep}
-          disabled={
-            value === "" && props.payment.amount === undefined ? true : false
-          }
+          disabled={disabled}
           title={"Make Payment"}
         />
       </div>
