@@ -9,6 +9,12 @@ import bodyParser from "body-parser";
 // import { initNode, node } from "./helpers/node";
 import { Socket } from "socket.io";
 import { Session } from "express-session";
+const port = 3000
+
+const config = {
+  host: process.env.API_HOST || "localhost",
+  url: process.env.API_URL || "/",
+};
 
 const app = express();
 app.use(bodyParser.json()); 
@@ -27,16 +33,10 @@ declare module "express-serve-static-core" {
 
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: process.env.PROJECT_URL,
     credentials: true,
   })
 );
-
-const config = {
-  host: "localhost",
-  port: 3000,
-  url: "http://localhost:3000",
-};
 
 // if (!config.url) {
 //   config.url = "http://" + config.host + ":" + config.port;
@@ -93,13 +93,13 @@ app.get(
   function (req: Request, res: Response, next: NextFunction) {
     if (req.user) {
       // Already authenticated.
-      return res.redirect("http://localhost:3001/");
+      return res.redirect(process.env.PROJECT_URL || "https://bit-send.xyz");
     }
     next();
   },
   new LnurlAuth.Middleware({
     callbackUrl: config.url + "/login",
-    cancelUrl: "http://localhost:3001/",
+    cancelUrl: process.env.PROJECT_URL,
     loginTemplateFilePath: path.join(__dirname, "login.html"),
   })
 );
@@ -130,14 +130,14 @@ app.get(
 app.use(routes);
 
 
-const server = app.listen(config.port, config.host, function () {
+const server = app.listen(port, config.host, function () {
   console.log("Server listening at " + config.url);
 });
 
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://localhost:3001"],
+    origin: [process.env.PROJECT_URL],
   },
 });
 

@@ -1,7 +1,7 @@
 .loginContainer{
     border:solid 1px rgb(0, 0, 0,0.1);
     border-radius:10px;
-    padding:20px 50px;
+    padding:20px 30px;
     text-align:center;
     margin:50px 0px;
     max-width: 450px;
@@ -44,3 +44,9 @@
   .loginForm{
     margin:20px 0px
   }
+
+
+.navHeader {
+  display:flex !important;
+  justify-content: space-between !important;
+}
