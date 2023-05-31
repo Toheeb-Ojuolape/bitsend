@@ -10,6 +10,7 @@ import Invoice from "./pages/Invoice";
 import { io } from "socket.io-client";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import avatar from "./assets/user.png"
 
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
 
   return (
     <div>
-      <nav>
+      <nav className="navHeader">
         <h2 className="navTitle" onClick={navigateHome}>
           Bit ⚡ Send
         </h2>
@@ -68,7 +69,8 @@ function App() {
           </div>
         ) : (
           <div className="cpLayout" onClick={navigateLogout}>
-            <p className="user">Logged in as: {user}</p>
+            <img src={avatar} width={"40px"} alt={""}/>
+            <span className="user"> {user}</span>
             <MdLogout className="cpIcon" />
             <h4 className="navCP">Logout</h4>
           </div>

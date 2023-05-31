@@ -19,12 +19,12 @@ function UserDetails({ goBack, next, id,code }) {
   const [country, setCountry] = useState("");
 
   useEffect(() => {
-    if (name && country) {
+    if (name && country && email) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [name, country]);
+  }, [name, country,email]);
 
   const saveDetails = () => {
     //create a user in the database with these details
@@ -84,7 +84,7 @@ function UserDetails({ goBack, next, id,code }) {
       <div className="userDetailsForm">
         <TextInput
           label={"Give us a name"}
-          helper={"Please DO NOT share your real name"}
+          helper={"Please DO NOT share your real name. Use a pseudonym"}
           type={"text"}
           setInput={(e) => setName(e)}
         />
@@ -96,9 +96,10 @@ function UserDetails({ goBack, next, id,code }) {
         />
 
         <TextInput
-          label={"Email for notifications (optional)"}
+          label={"Email (for notifications)"}
           type={"email"}
           setInput={(e) => setEmail(e)}
+          helper={"You can create a pseudonym email for this too!"}
         />
 
         <PrimaryBtn
