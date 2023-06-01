@@ -1,15 +1,14 @@
 declare const process: any;
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 const LnurlAuth = require("passport-lnurl-auth");
 const passport = require("passport");
 const session = require("express-session");
 import cors from "cors";
 import path from "path";
-const routes = require("./routes/router");
+const routes = require("./src/routes/router");
 import bodyParser from "body-parser";
 // import { initNode, node } from "./helpers/node";
 import { Socket } from "socket.io";
-import { Session } from "express-session";
 const port = 3000
 
 const config = {
@@ -79,7 +78,7 @@ passport.use(
 
 app.use(passport.authenticate("lnurl-auth"));
 
-app.get("/", function (req: Request, res: Response) {
+app.get("/", function (req: any, res: any) {
   if (!req.user) {
     return res.send(
       'You are not authenticated. To login go <a href="/login">here</a>.'
@@ -91,7 +90,7 @@ app.get("/", function (req: Request, res: Response) {
 
 app.get(
   "/login",
-  function (req: Request, res: Response, next: NextFunction) {
+  function (req: any, res: any, next:any) {
     if (req.user) {
       // Already authenticated.
       return res.redirect(process.env.PROJECT_URL || "https://bit-send.xyz");
@@ -105,16 +104,16 @@ app.get(
   })
 );
 
-app.get("/user", (req: Request, res: Response) => {
+app.get("/user", (req: any, res: any) => {
   res.send(req.user);
 });
 
 app.get(
   "/logout",
   function (
-    req: Request<{}, {}, {}, {}, Session>,
-    res: Response,
-    next: NextFunction
+    req: any,
+    res: any,
+    next: any
   ) {
     if (req.user) {
       req.session.destroy(function (err:any) {

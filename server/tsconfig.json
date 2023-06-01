@@ -10,6 +10,13 @@
       "strictPropertyInitialization": false,
       "skipLibCheck": true,
       "outDir": "./build",
-      "rootDir": "."
+      "rootDir": ".",
+      "typeRoots": [
+        "./node_modules/@types"
+      ],
+      "types": [
+        "node",
+        "express"
+      ]
     }
   }
