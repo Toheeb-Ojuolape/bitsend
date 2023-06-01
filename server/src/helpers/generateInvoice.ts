@@ -1,9 +1,8 @@
 require("dotenv").config();
 var request = require("request");
 import { AccessToken } from "../interface/responses";
-import {Request} from "express" 
 
-async function generateInvoice(accessToken:AccessToken,req:Request) {
+async function generateInvoice(accessToken:AccessToken,req:any) {
   return new Promise((resolve, reject) => {
     try {
         console.log(req.body)

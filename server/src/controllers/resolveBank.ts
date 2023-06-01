@@ -1,8 +1,7 @@
 require("dotenv").config();
 const Flutterwave = require("flutterwave-node-v3");
-import { Request, Response } from "express";
 
-export const resolvebank_post = async (req: Request, res: Response) => {
+export const resolvebank_post = async (req: any, res: any) => {
     const flw = new Flutterwave(
       process.env.FLUTTERWAVE_PUBLIC_KEY,
       process.env.FLUTTERWAVE_SECRET_KEY

@@ -1,9 +1,8 @@
 import { handleErrors, handleSuccess } from "../helpers/handlers";
-import { Request, Response } from "express";
 import fetchUserToken from "../helpers/fetchUserToken";
 import supabase from "../database/supabase";
 
-export const createuser_post = async (req: Request, res: Response) => {
+export const createuser_post = async (req: any, res: any) => {
   try {
     const { name, email, country, code, pubkey } = req.body;
     // Get the user's accessToken and refreshToken from Alby before storing the user's data

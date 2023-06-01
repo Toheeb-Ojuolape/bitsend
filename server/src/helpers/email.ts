@@ -1,5 +1,4 @@
 var nodemailer = require("nodemailer");
-import { Response } from "express";
 const Handlebars = require("handlebars");
 const path = require("path");
 const fs = require("fs");
@@ -24,7 +23,7 @@ export interface Payload {
   accountNumber: string;
 }
 
-async function sendNotification(payload: Payload, res: Response) {
+async function sendNotification(payload: Payload, res: any) {
   var mail = nodemailer.createTransport({
     service: "gmail",
     port: 465,

@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
 import fetchAccessToken from "../helpers/fetchAccessToken";
 import { handleErrors, handleSuccess } from "../helpers/handlers";
 import generateInvoice from "../helpers/generateInvoice";
 import supabase from "../database/supabase";
 
 //generate invoice
-export const generateInvoice_post = async (req: Request, res: Response) => {
+export const generateInvoice_post = async (req: any, res: any) => {
   const {id} = req.body
   try {
     //use refreshToken to generate fresh accessToken
