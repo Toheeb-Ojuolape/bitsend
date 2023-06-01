@@ -1,9 +1,8 @@
-import { Request, Response } from "express";
 import { handleErrors, handleSuccess } from "../helpers/handlers";
 import supabase from "../database/supabase";
 
 // use this endpoint to find an intermediary based on the country of the user
-export const fetchIntermediary_post = async (req: Request, res: Response) => {
+export const fetchIntermediary_post = async (req: any, res: any) => {
   const {country} = req.body
   try {
     const { data, error } = await supabase.from("users").select().eq("country",country);

@@ -1,8 +1,7 @@
 require("dotenv").config();
 var request = require("request");
-import { Request } from "express";
 
-async function fetchAccessToken(req: Request) {
+async function fetchAccessToken(req: any) {
   return new Promise((resolve, reject) => {
     try {
       var options = {

@@ -1,7 +1,7 @@
 import sendNotification from "../helpers/email";
-import { Request, Response } from "express";
 
-export const sendemail_post = async (req: Request, res: Response) => {
+
+export const sendemail_post = async (req: any, res: any) => {
     try {
       sendNotification(req.body, res);
     } catch (error) {
