@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.ts",
   "scripts": {
-    "start": "ts-node app.ts"
+    "start": "ts-node app.ts",
+    "web": "ts-node app.ts"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,7 @@
     "@types/express-session": "^1.17.7",
     "@types/express-ws": "^3.0.1",
     "@types/node": "^18.14.0",
-    "@types/uuid": "^9.0.0"
+    "@types/uuid": "^9.0.0",
+    "typescript": "^5.0.4"
   }
 }
