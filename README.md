@@ -1,6 +1,5 @@
 # bitsend
-Open-source remittance for Global and Pan-African payments made with Bitcoin &amp; Lightning
-
+Open-source remittance to and within Africa using Bitcoin and Lightning
 ## Video demo
 👉🏾https://www.youtube.com/watch?v=D29JS4pztRo
 
