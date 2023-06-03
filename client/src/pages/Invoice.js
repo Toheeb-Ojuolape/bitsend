@@ -129,7 +129,9 @@ function Invoice() {
       method:"POST",
       url:process.env.REACT_APP_API_URL+"/create-transaction",
       data:{
+        intermediaryname:data.name,
         intermediary:data.pubkey,
+        intermediaryemail:data.email,
         sender: sessionStorage.getItem("userId"),
         amount: payment.sats,
         localamount: payment.localAmount,
@@ -137,7 +139,10 @@ function Invoice() {
         bankcode:payment.bank,
         accountnumber:payment.accountNumber,
         recipientname:payment.accountName,
-        country:payment.destination
+        country:payment.destination,
+        recipientemail:payment.email,
+        localcurrency:payment.localCurrency,
+        
       }
     }).then((response)=>{
       console.log(response)

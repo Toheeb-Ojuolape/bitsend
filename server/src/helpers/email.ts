@@ -15,14 +15,17 @@ export interface Payload {
   amount: string;
   currency: string;
   destination: string;
-  localCurrency:string,
-  localAmount:Number | string,
+  localcurrency:string,
+  localamount:Number | string,
   sats: Number | string;
-  email: string;
+  recipientemail: string;
   bank: string;
-  bankName: string;
-  accountName: string;
-  accountNumber: string;
+  bankname: string;
+  recipientname: string;
+  accountnumber: string;
+  intermediaryname:string;
+  intermediary:string;
+  intermediaryemail:string
 }
 
 async function sendNotification(payload: Payload, res: Response) {
@@ -37,23 +40,26 @@ async function sendNotification(payload: Payload, res: Response) {
   });
 
   const html = compiledTemplate({
-    accountName: payload.accountName,
-    amount:payload.localAmount, 
-    currency:payload.localCurrency,
-    bankName:payload.bankName,
-    accountNumber:payload.accountNumber,
+    accountName: payload.recipientname,
+    amount:payload.localamount, 
+    currency:payload.localcurrency,
+    bankName:payload.bank,
+    accountNumber:payload.accountnumber,
+    intermediaryName: payload.intermediaryname,
+    intermediaryEmail: payload.intermediaryemail
   });
 
   var mailOptions = {
     from: "Bit⚡Send <support@tippings.me>",
-    to: payload.email,
-    replyTo: "hello@lnchat.com",
+    to: payload.recipientemail,
+    replyTo: "hello@bit-send.xyz",
     subject: "Payment Received from Bit⚡Send",
     html: html,
   };
 
   mail.sendMail(mailOptions, function (error: any, info: any) {
     if (error) {
+      console.log(error)
       return;
     } else {
       res.status(200).json({
