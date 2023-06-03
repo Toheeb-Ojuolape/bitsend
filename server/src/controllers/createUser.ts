@@ -1,8 +1,9 @@
 import { handleErrors, handleSuccess } from "../helpers/handlers";
 import fetchUserToken from "../helpers/fetchUserToken";
 import supabase from "../database/supabase";
+import { Request, Response } from "express-serve-static-core";
 
-export const createuser_post = async (req: any, res: any) => {
+export const createuser_post = async (req: Request, res: Response) => {
   try {
     const { name, email, country, code, pubkey } = req.body;
     // Get the user's accessToken and refreshToken from Alby before storing the user's data
@@ -12,9 +13,6 @@ export const createuser_post = async (req: any, res: any) => {
       handleErrors(res, { message: tokens.error_description });
       return;
     }
-
-    console.log(name,email,country,code,pubkey)
-
 
     const { data, error } = await supabase.from("users").insert([
       {
@@ -27,16 +25,16 @@ export const createuser_post = async (req: any, res: any) => {
       },
     ]);
 
-
     if (error) {
       handleErrors(res, { message: error.message });
+      return
     }
 
-    if (data ===null){
-      handleSuccess(res,{
+    if (data === null) {
+      handleSuccess(res, {
         message: "User created successfully",
         data: { pubkey: pubkey },
-      })
+      });
     }
   } catch (error: any) {
     if (error.code === "23505" && error.constraint === "users_id_key") {
@@ -48,7 +46,5 @@ export const createuser_post = async (req: any, res: any) => {
     }
   }
 };
-
-
 
 //currently experiencing a supabase error where data is null for successful insertion of record

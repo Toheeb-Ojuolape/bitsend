@@ -4,11 +4,12 @@ const LnurlAuth = require("passport-lnurl-auth");
 const passport = require("passport");
 const session = require("express-session");
 import cors from "cors";
+import { NextFunction, Request,Response } from "express-serve-static-core";
 import path from "path";
 const routes = require("./src/routes/router");
 // import { initNode, node } from "./helpers/node";
 import { Socket } from "socket.io";
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 const config = {
   host: process.env.API_HOST,
@@ -68,7 +69,7 @@ passport.use(
 
 app.use(passport.authenticate("lnurl-auth"));
 
-app.get("/", function (req: any, res: any) {
+app.get("/", function (req: any, res: Response) {
   if (!req.user) {
     return res.send(
       'You are not authenticated. To login go <a href="/login">here</a>.'
@@ -80,7 +81,7 @@ app.get("/", function (req: any, res: any) {
 
 app.get(
   "/login",
-  function (req: any, res: any, next:any) {
+  function (req: any, res: Response, next:NextFunction) {
     if (req.user) {
       // Already authenticated.
       return res.redirect(process.env.PROJECT_URL || "https://bit-send.xyz");
@@ -94,7 +95,7 @@ app.get(
   })
 );
 
-app.get("/user", (req: any, res: any) => {
+app.get("/user", (req: any, res: Response) => {
   res.send(req.user);
 });
 
@@ -102,8 +103,8 @@ app.get(
   "/logout",
   function (
     req: any,
-    res: any,
-    next: any
+    res: Response,
+    next: NextFunction
   ) {
     if (req.user) {
       req.session.destroy(function (err:any) {
@@ -130,22 +131,6 @@ const io = require("socket.io")(server, {
     origin: [process.env.PROJECT_URL],
   },
 });
-
-
-// console.log("Lightning node initialized!");
-//   console.log("Starting server...");
-//   io.on("connection", async (socket: Socket) => {
-//     let subscriber = await node.subscribeInvoices();
-//     subscriber.on("data", (invoice) => {
-//       console.log(invoice);
-//       if (invoice.settled === true) {
-//         socket.emit("payment-completed", invoice);
-//       }
-//     });
-//     socket.on("disconnect", () => {
-//       console.log("A user disconnected.");
-//     })
-//   })
 
 
 

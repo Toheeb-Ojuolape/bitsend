@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { MdLogout } from "react-icons/md";
+import { MdInbox, MdLogout } from "react-icons/md";
 import Home from "./pages/Home";
 import Login from "./pages/Login"
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import { io } from "socket.io-client";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import avatar from "./assets/user.png"
+import Transactions from "./pages/Transactions";
 
 
 function App() {
@@ -54,13 +55,21 @@ function App() {
     });
   };
 
+  const goToTransaction = () =>{
+    window.location.href = "/transactions"
+  }
+
   return (
     <div>
       <nav className="navHeader">
+
+        <div className="headerLayout">
         <h2 className="navTitle" onClick={navigateHome}>
           Bit ⚡ Send
         </h2>
 
+        {user && <div onClick={goToTransaction} className="transactions"><MdInbox size={"25px"} className="transactionIcon"/> <div className="text">Transactions</div></div>}
+        </div>
         {user == null ? (
           <div>
             <div className="loginButton" onClick={navigateLogin}>
@@ -86,6 +95,7 @@ function App() {
           )}
           <Route path="/recipient" element={<Recipient />} />
           <Route path="/invoice" element={<Invoice />} />
+          <Route path="/transactions" element={<Transactions/>}/>
         </Routes>
       </Provider>
     </div>

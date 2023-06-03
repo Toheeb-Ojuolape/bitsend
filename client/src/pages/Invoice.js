@@ -55,13 +55,32 @@ function Invoice() {
       },
     }).then((response) => {
       //show intermediary options available
-      console.log(response);
       setUsers(response.data.data);
       setLoading(false);
       setShowModal(true);
-      // generateInvoice(response.data.data)
     });
   }, [payment]);
+
+
+  const checkInvoice = (paymentHash,token,data) =>{
+    const intervalId = setInterval(()=>{
+      axios({
+        method:"GET",
+        url:process.env.REACT_APP_ALBY_API+"/invoices/"+paymentHash,
+        headers:{
+          Authorization:"Bearer "+token
+        }
+      }).then((response)=>{
+        console.log(response)
+        if(response.data.state === "SETTLED"){
+          showSuccess(data)
+          clearInterval(intervalId)
+        }
+      }).catch((error)=>{
+        console.log(error)
+      })
+    },3000)
+  }
 
   const generateInvoice = (data) => {
     console.log(data)
@@ -86,8 +105,10 @@ function Invoice() {
       },
     })
       .then((response) => {
+        console.log(response)
         setInvoice(response.data.data.payment_request)
         setLoading(false)
+        checkInvoice(response.data.data.payment_hash,response.data.token,data)
       })
       .catch((error) => {
         setLoading(false)
@@ -99,6 +120,36 @@ function Invoice() {
         })
       });
   };
+
+
+
+  const showSuccess = (data) =>{
+    setLoading(true)
+    axios({
+      method:"POST",
+      url:process.env.REACT_APP_API_URL+"/create-transaction",
+      data:{
+        intermediary:data.pubkey,
+        sender: sessionStorage.getItem("userId"),
+        amount: payment.sats,
+        localamount: payment.localAmount,
+        bank:payment.bankName,
+        bankcode:payment.bank,
+        accountnumber:payment.accountNumber,
+        recipientname:payment.accountName,
+        country:payment.destination
+      }
+    }).then((response)=>{
+      console.log(response)
+      setLoading(false)
+      document.getElementById("invoice").style.display = "none"
+      document.getElementById("success").style.display = "block"
+    }).catch((error)=>{
+      alert(error)
+    })
+  }
+
+
 
   const onClose = () => {
     setShowModal(false);

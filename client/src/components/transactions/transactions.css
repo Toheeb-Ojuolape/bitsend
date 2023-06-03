@@ -1,0 +1,52 @@
+.transactionsContainer {
+  border: solid 1px rgb(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px 30px;
+  margin: 20px 10px;
+  max-width: 600px;
+  box-shadow: 0px 3px 4px 0px rgb(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+
+.tabGrid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.tab{
+    padding:20px;
+    text-align:center;
+    cursor:pointer
+}
+
+.activeTab{
+    background-color:#ffecff;
+    color:#753ff6;
+    transition:background-color 0.3ms smooth
+}
+
+
+.transactionGrid{
+    display:grid;
+    grid-template-columns: 0.24fr 1.5fr 0.5fr;
+    padding:10px 0px
+}
+
+.transactionList{
+    margin:30px 0px;
+}
+
+
+.subtitle{
+    font-size:12px
+}
+
+.transactionTitle{
+    padding:7px 0px 0px 0px
+}
+
+
+.transactionDetails>*{
+    padding:0px 5px 0px 0px 
+}

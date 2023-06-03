@@ -27,7 +27,7 @@ function IntermediaryModal(props) {
         />
         <SecondaryBtn
           onClick={() => props.onClose()}
-          title={"No, cancel"}
+          title={"No, thanks"}
         />
       </div>
 

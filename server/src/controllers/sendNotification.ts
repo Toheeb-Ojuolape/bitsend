@@ -1,7 +1,8 @@
+import { Request, Response } from "express-serve-static-core";
 import sendNotification from "../helpers/email";
 
 
-export const sendemail_post = async (req: any, res: any) => {
+export const sendemail_post = async (req: Request, res: Response) => {
     try {
       sendNotification(req.body, res);
     } catch (error) {

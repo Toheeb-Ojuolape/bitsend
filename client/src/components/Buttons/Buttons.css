@@ -46,3 +46,26 @@
     border-radius:50%;
     cursor: pointer;
 }
+
+
+.statusBtn{
+    padding:15px 13px;
+    outline:none;
+    width:100%;
+    margin:0px 0px 20px 0px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:background-color 2s ease;
+    background: white;
+}
+
+
+.completed{
+    border:1px solid #2ec76b;
+    color:#2ec76b;
+}
+
+.pending{
+    border:1px solid #f7c839;
+    color: #f7c839;
+}

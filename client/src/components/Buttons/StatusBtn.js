@@ -1,19 +1,19 @@
 import React from "react";
 import "./Buttons.css";
 
-function PrimaryBtn({onClick,disabled,loading,title}) {
+function StatusBtn({onClick,disabled,loading,title,className}) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={disabled ? "disabled":"primaryBtn"}
+      className={"statusBtn "+className}
       loading={loading}
     >
-      {title} {disabled} 
+      {title} 
      
     
     </button>
   );
 }
 
-export default PrimaryBtn;
+export default StatusBtn;
