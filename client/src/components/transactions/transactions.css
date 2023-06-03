@@ -21,7 +21,7 @@
 }
 
 .activeTab{
-    background-color:#ffecff;
+    background-color:#ececff;
     color:#753ff6;
     transition:background-color 0.3ms smooth
 }
