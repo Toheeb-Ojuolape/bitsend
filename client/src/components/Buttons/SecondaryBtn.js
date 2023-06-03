@@ -1,15 +1,15 @@
 import React from "react";
 import "./Buttons.css";
 
-function SecondaryBtn(props) {
+function SecondaryBtn({onClick,disabled,loading,title}) {
   return (
     <button
-      onClick={props.onClick}
-      disabled={props.disabled}
-      className={props.disabled ? "disabled":"secondaryBtn"}
-      loading={props.loading}
+      onClick={onClick}
+      disabled={disabled}
+      className={disabled ? "disabled":"secondaryBtn"}
+      loading={loading}
     >
-      {props.title} {props.disabled} 
+      {title}
      
     
     </button>

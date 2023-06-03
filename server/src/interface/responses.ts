@@ -5,6 +5,7 @@ export interface errorMessage {
 export interface successMessage {
   message: string;
   data: object;
+  token?: string 
 }
 
 export interface AccessToken {

@@ -1,8 +1,10 @@
+import { Request, Response } from "express-serve-static-core";
+
 require("dotenv").config();
 var request = require("request");
 
 
-export const fetchBanks_post = async (req: any, res: any) => {
+export const fetchBanks_post = async (req: Request, res: Response) => {
     var options = {
       method: "GET",
       url: "https://api.flutterwave.com/v3/banks/" + req.body.country,

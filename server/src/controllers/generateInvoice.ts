@@ -2,9 +2,10 @@ import fetchAccessToken from "../helpers/fetchAccessToken";
 import { handleErrors, handleSuccess } from "../helpers/handlers";
 import generateInvoice from "../helpers/generateInvoice";
 import supabase from "../database/supabase";
+import { Request, Response } from "express-serve-static-core";
 
 //generate invoice
-export const generateInvoice_post = async (req: any, res: any) => {
+export const generateInvoice_post = async (req: Request, res: Response) => {
   const {id} = req.body
   try {
     //use refreshToken to generate fresh accessToken
@@ -31,8 +32,9 @@ export const generateInvoice_post = async (req: any, res: any) => {
     }
 
     handleSuccess(res,{
-      message:"Invoice fetched successfully",
-      data:JSON.parse(info)
+      message:"Invoice generated successfully",
+      data:JSON.parse(info),
+      token:accessToken.access_token
     })
 
   } catch (error: any) {

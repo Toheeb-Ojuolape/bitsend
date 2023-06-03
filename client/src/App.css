@@ -8,6 +8,10 @@
     white-space: nowrap;
     margin-left:7px
   }
+
+  .headerLayout .transactions{
+    display:none
+  }
 }
 
 
@@ -80,5 +84,29 @@ nav {
   height: 1.2em;
   white-space: nowrap;
   margin-left:7px
+}
+
+.headerLayout{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.headerLayout> *{
+  margin:0px 0px 0px 20px
+}
+
+.headerLayout .transactions .text{
+  font-size:20px;
+  font-weight:600
+}
+
+.transactions{
+  display:flex;
+  cursor: pointer;
+}
+
+.transactionIcon{
+  margin:0px 5px 0px 0px
 }
 }

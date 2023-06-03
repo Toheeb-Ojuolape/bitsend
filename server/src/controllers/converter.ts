@@ -1,6 +1,8 @@
+import { Request,Response } from "express-serve-static-core";
+
 const CC = require("currency-converter-lt");
 
-export const converter_post = async (req: any, res: any) => {
+export const converter_post = async (req: Request, res: Response) => {
     let currencyConverter = new CC();
     currencyConverter
       .from(req.body.currency)
