@@ -51,8 +51,10 @@ function App() {
     }).then((res) => {
       setUser(null);
       console.log(res);
-      window.location.href="/"
-    });
+      window.location.reload()
+    }).catch((error)=>{
+      window.location.reload()
+    })
   };
 
   const goToTransaction = () =>{

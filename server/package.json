@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "start": "ts-node app.ts",
-    "web": "ts-node app.ts"
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,8 @@
     "@radar/lnrpc": "^0.11.1-beta.1",
     "@supabase/supabase-js": "^2.24.0",
     "axios": "^1.3.5",
+    "connect-pg-simple": "^8.0.0",
+    "connect-redis": "^7.1.0",
     "cors": "^2.8.5",
     "currency-converter-lt": "^2.0.0-beta.0",
     "dotenv": "^16.0.3",
@@ -27,6 +29,7 @@
     "passport-lnurl-auth": "^1.5.1",
     "path": "^0.12.7",
     "pg": "^8.11.0",
+    "redis": "^4.6.7",
     "request": "^2.88.2",
     "server": "^1.0.38",
     "socket.io": "^4.6.1",
