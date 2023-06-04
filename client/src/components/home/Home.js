@@ -22,7 +22,6 @@ function Home(props) {
         newCurrency: currency,
       },
     }).then((response) => {
-      console.log(response);
       setRate(response.data);
     });
   }, [setRate,currency,newCurrency]);
@@ -41,7 +40,6 @@ function Home(props) {
         newCurrency: currency,
       },
     }).then((response) => {
-      console.log(response);
       setRate(response.data);
       setNewCurrency(currency)
     });

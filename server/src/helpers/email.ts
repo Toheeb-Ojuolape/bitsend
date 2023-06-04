@@ -59,7 +59,6 @@ async function sendNotification(payload: Payload, res: Response) {
 
   mail.sendMail(mailOptions, function (error: any, info: any) {
     if (error) {
-      console.log(error)
       return;
     } else {
       res.status(200).json({
