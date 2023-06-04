@@ -4,12 +4,15 @@ const LnurlAuth = require("passport-lnurl-auth");
 const passport = require("passport");
 const session = require("express-session");
 import cors from "cors";
-import { NextFunction, Request,Response } from "express-serve-static-core";
+import { NextFunction, Response } from "express-serve-static-core";
 import path from "path";
 const routes = require("./src/routes/router");
 // import { initNode, node } from "./helpers/node";
 import { Socket } from "socket.io";
 const port = process.env.PORT || 3000;
+const pgSession = require("connect-pg-simple")(session);
+const { Pool } = require("pg");
+
 
 const config = {
   host: process.env.API_HOST,
@@ -33,11 +36,25 @@ app.use(
 //   config.url = "http://" + config.host + ":" + config.port;
 // }
 
+const pool = new Pool({
+  connectionString: "postgres://sjyhyloq:a7bpNTEbGTkamgAHKNIZRnzmHHpaD79p@mahmud.db.elephantsql.com/sjyhyloq",
+});
+
+
 app.use(
   session({
-    secret: "12345",
-    resave: true,
-    saveUninitialized: true,
+    secret: process.env.FOO_COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store:new pgSession({
+      conString:"postgres://sjyhyloq:a7bpNTEbGTkamgAHKNIZRnzmHHpaD79p@mahmud.db.elephantsql.com/sjyhyloq",
+      tableName:"session"
+    }),
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      secure: false, // Set this to true if using HTTPS
+      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+    },
   })
 );
 
@@ -57,7 +74,7 @@ passport.deserializeUser(function (id: string, done: any) {
 });
 
 passport.use(
-  new LnurlAuth.Strategy(function (linkingPublicKey: string, done: any) {
+  new LnurlAuth.Strategy(function (linkingPublicKey: string, done: any,) {
     let user = map.user.get(linkingPublicKey);
     if (!user) {
       user = { id: linkingPublicKey };
@@ -109,9 +126,11 @@ app.get(
     if (req.user) {
       req.session.destroy(function (err:any) {
         if (err) {
-          return next(err);
+          next(err)
+          return
         }
         res.json({ message: "user logged out" })
+        return
       });
     }
     next();
