@@ -3,6 +3,8 @@ Open-source remittance to and within Africa using Bitcoin and Lightning
 ## Video demo
 👉🏾https://www.youtube.com/watch?v=D29JS4pztRo
 
+## Link to project
+👉🏾https://bit-send.xyz
 ## Introduction
 
 Due to regulatory reasons, Bitcoin trading in Nigeria is currently considered illegal, nonetheless, there is still a huge adoption of Bitcoin as a means of exchange of value and not only as a source of value. There is also a huge market demand for remittance and foreign payments being received from Nigerians/Africans in diaspora and Bitcoin has the potential to fulfill this demand. 
