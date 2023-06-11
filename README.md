@@ -44,5 +44,5 @@ As Africa currently has a low population of technically-savvy people who know ho
 
 ## Technologies
 - Frontend - ReactJs, socket.io, UsdToSats converter, Material UI
-- Backend - Nodejs (Typescript), Socket.io,@radar/lnrpc, Nodemailer, PostgresQL
+- Backend - Nodejs (Typescript), Socket.io, @radar/lnrpc, Nodemailer, PostgresQL, Supabase
 
