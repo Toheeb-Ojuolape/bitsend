@@ -17,7 +17,7 @@ export const fetchTransactions_get = async (req: Request, res: Response) => {
     if (data) {
       handleSuccess(res, {
         message: "Transactions fetched successfully",
-        data,
+        data:data.reverse(),
       });
     }
   } catch (error:any) {

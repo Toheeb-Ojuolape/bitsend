@@ -3,6 +3,7 @@ const express = require("express")
 const LnurlAuth = require("passport-lnurl-auth");
 const passport = require("passport");
 const session = require("express-session");
+require("dotenv").config()
 import cors from "cors";
 import { NextFunction, Response } from "express-serve-static-core";
 import path from "path";
@@ -12,7 +13,7 @@ import { Socket } from "socket.io";
 const port = process.env.PORT || 3000;
 const pgSession = require("connect-pg-simple")(session);
 const { Pool } = require("pg");
-
+let pubKey = ""
 
 const config = {
   host: process.env.API_HOST,
@@ -53,7 +54,7 @@ app.use(
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       secure: false, // Set this to true if using HTTPS
-      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+      httpOnly: false, // Prevent client-side JavaScript from accessing the cookie
     },
   })
 );
@@ -76,6 +77,7 @@ passport.deserializeUser(function (id: string, done: any) {
 passport.use(
   new LnurlAuth.Strategy(function (linkingPublicKey: string, done: any,) {
     let user = map.user.get(linkingPublicKey);
+    pubKey = linkingPublicKey
     if (!user) {
       user = { id: linkingPublicKey };
       map.user.set(linkingPublicKey, user);
@@ -88,10 +90,11 @@ app.use(passport.authenticate("lnurl-auth"));
 
 app.get("/", function (req: any, res: Response) {
   if (!req.user) {
-    return res.send(
+     res.send(
       'You are not authenticated. To login go <a href="/login">here</a>.'
     );
     // return res.redirect('/login');
+    return
   }
   res.send("Logged-in");
 });
@@ -100,8 +103,11 @@ app.get(
   "/login",
   function (req: any, res: Response, next:NextFunction) {
     if (req.user) {
+      console.log(pubKey)
+      console.log(req.user)
       // Already authenticated.
-      return res.redirect(process.env.PROJECT_URL || "https://bit-send.xyz");
+      res.redirect(process.env.PROJECT_URL || "https://bit-send.xyz");
+      return
     }
     next();
   },
