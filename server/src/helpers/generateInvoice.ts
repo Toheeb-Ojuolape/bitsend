@@ -6,7 +6,6 @@ import { Request } from "express-serve-static-core";
 async function generateInvoice(accessToken:AccessToken,req:Request) {
   return new Promise((resolve, reject) => {
     try {
-        console.log(req.body)
         var options = {
             method: "POST",
             url: process.env.ALBY_API_URL + "/invoices",
